@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eca7bf7b-9f0b-4749-99f2-8e49575060bf" name="Changes" comment="Empezar de nuevo, pero esta vez copiando lo que nos dan en vez de pensar como personas">
-      <change afterPath="$PROJECT_DIR$/src/CatalogoIMDB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Interprete.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ListaInterpretes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ListaPeliculas.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Película.java" afterDir="false" />
+    <list default="true" id="eca7bf7b-9f0b-4749-99f2-8e49575060bf" name="Changes" comment="En vez de pensar como personas, voy a copiar lo que ponen como un puto mono, que parece ser lo que quieren">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Película.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pelicula.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +43,14 @@
     </key>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="En vez de pensar como personas, voy a copiar lo que ponen como un puto mono, que parece ser lo que quieren">
+      <created>1666622622758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666622622758</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -70,5 +75,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="En vez de pensar como personas, voy a copiar lo que ponen como un puto mono, que parece ser lo que quieren" />
+    <option name="LAST_COMMIT_MESSAGE" value="En vez de pensar como personas, voy a copiar lo que ponen como un puto mono, que parece ser lo que quieren" />
   </component>
 </project>

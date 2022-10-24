@@ -1,4 +1,4 @@
-public class Película {
+public class Pelicula {
     /**
      * Añade un intérprete a la película
      * @param inter Intérprete a añadir

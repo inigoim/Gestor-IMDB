@@ -1,20 +1,22 @@
 public class Interprete {
     private String nombre;
-    private double rating;
+    private float rating;
     private ListaPeliculas filmografia;
     /**
-     * Calcula y asigna el rating del intérprete en base al rating de sus películas
+     * Calcula y asigna el rating del intérprete basándose en el rating de sus películas
+     * Es de orden O(n).
      */
+
     public void calcularRating() {
-        double sumRating = 0; int numvotos = 0;
+        float sumRating = 0; int numvotos = 0;
         for (Pelicula pel: filmografia.getLista()) {
             sumRating += pel.getRating() * pel.getNumvotos();
             numvotos += pel.getNumvotos();
         }
-        rating = sumRating / numvotos;
+        setRating(sumRating / numvotos);
     }
     /**
-     * Añade una película al intérprete
+     * Añade una película al intérprete. Es de orden O(1)
      * @param pel Película a añadir
      * POST: El rating del intérprete NO se modifica en este momento
      */
@@ -31,5 +33,9 @@ public class Interprete {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    private void setRating(float rating) {
+        this.rating = rating;
     }
 }

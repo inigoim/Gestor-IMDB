@@ -1,18 +1,32 @@
 public class Pelicula {
     private String titulo;
-    private double rating;
+    private float rating;
     private int numvotos;
+
+    private ListaInterpretes reparto;
     /**
-     * Añade un intérprete a la película
+     * Añade un intérprete a la película. Es de orden O(1)
      * @param inter Intérprete a añadir
      */
-    public void anadirInterprete(Interprete inter) {}
+    public void anadirInterprete(Interprete inter)
+    {
+        reparto.anadirInterprete(inter);
+    }
+
     /**
-     * Añade un nuevo voto a la película.
+     * Añade un nuevo voto a la película. Es de orden O(n*m)
      * POST: se han recalculado los ratings de sus intérpretes
      * @param voto
      */
-    public void anadirVoto(float voto) {}
+    public void anadirVoto(float voto) {
+        if (voto < 0) voto = 0;
+        else if (voto > 10) voto = 10;
+        setRating((getRating() * getNumvotos() + voto) / (getNumvotos() + 1));
+        setNumvotos(getNumvotos() + 1);
+        for (Interprete i : reparto.getLista()) {
+            i.calcularRating();
+        }
+    }
 
 
 
@@ -26,11 +40,11 @@ public class Pelicula {
         this.titulo = titulo;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    private void setRating(float rating) {
         this.rating = rating;
     }
 
@@ -38,7 +52,7 @@ public class Pelicula {
         return numvotos;
     }
 
-    public void setNumvotos(int numvotos) {
+    private void setNumvotos(int numvotos) {
         this.numvotos = numvotos;
     }
 }

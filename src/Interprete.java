@@ -38,4 +38,12 @@ public class Interprete {
     private void setRating(float rating) {
         this.rating = rating;
     }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public ListaPeliculas getFilmografia() {
+        return filmografia;
+    }
 }

@@ -20,6 +20,7 @@ public class ListaInterpretes {
         return null;
     }
 
+
     public ArrayList<Interprete> getLista() {
         return lista;
     }

@@ -52,12 +52,24 @@ public class CatalogoIMDB {
      * de sus películas.
      * @param nombre Nombre del intérprete
      */
-    public void imprimirInfoInterprete(String nombre) {}
+    public void imprimirInfoInterprete(String nombre) {
+        Interprete inter = interpretes.buscarInterprete(nombre);
+        if (inter != null){
+            System.out.printf("%s (%s)->%s%n",inter.getNombre() ,inter.getRating(), inter.getFilmografia().toString());
+        }
+
+    }
     /**
      * Añade un nuevo voto a una película
      * PRE: el valor del voto está entre 0.0 y 10.0.
      * @param titulo Título de la película
      * @param voto Valor del voto
      */
-    public void anadirVoto(String titulo, float voto) {}
+    public void anadirVoto(String titulo, float voto) {
+
+        if (voto < 0) voto = 0;
+        else if (voto > 10) voto = 10;
+
+        peliculas.buscarPelicula(titulo).anadirVoto(voto);
+    }
 }

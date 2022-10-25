@@ -26,4 +26,14 @@ public class ListaPeliculas {
     public ArrayList<Pelicula> getLista() {
         return (ArrayList<Pelicula>) lista.clone();
     }
+
+    // Siguiendo el formato del fichero cast.txt, override del método toString para imprimir las peliculas de lista
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < lista.size() - 1; i++) {
+            str.append(lista.get(i)); str.append("||");
+        }
+        str.append(lista.get(lista.size()-1));
+        return str.toString();
+    }
 }

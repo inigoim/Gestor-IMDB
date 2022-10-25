@@ -1,9 +1,41 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 public class CatalogoIMDB {
+    ListaPeliculas peliculas = new ListaPeliculas();
+    ListaInterpretes interpretes = new ListaInterpretes();
     /**
      * Carga las películas del catálogo desde el fichero indicado
      * @param nomF Nombre del fichero que contiene las películas
      */
-    public void cargarPeliculas(String nomF) {}
+    public void cargarPeliculas(String nomF) {
+        Path pth = Paths.get(nomF);
+        try {
+            /*Como tendremos un archivo muy grande, este método usará mucha memoria,
+            pero también será muy rápido*/
+            List<String> lineas = Files.readAllLines(pth);
+
+            Pelicula pel;
+            for (String linea : lineas) {
+                String[] pelDatos = linea.split("\t");
+                pel = new Pelicula(pelDatos[0], Integer.parseInt(pelDatos[2]),
+                        Float.parseFloat(pelDatos[3]), Integer.parseInt(pelDatos[4]));
+                peliculas.anadirPelicula(pel);
+            }
+        } catch (IOException e) {
+            System.out.println("Error en la lectura del archivo");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println("Error en el formato del archivo");
+        }
+
+
+    }
     /**
      * Carga los intérpretes del catálogo desde el fichero indicado
      * POST: se han cargado los intérpretes y se han calculado sus ratings

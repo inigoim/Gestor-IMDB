@@ -24,7 +24,9 @@ public class Interprete {
         filmografia.anadirPelicula(pel);
     }
 
-
+    public Interprete(String nombre) {
+        this.nombre = nombre;
+    }
 
     // Getters y Setters
     public String getNombre() {

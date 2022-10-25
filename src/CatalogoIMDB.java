@@ -8,10 +8,19 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class CatalogoIMDB {
+    private CatalogoIMDB miCatalogo;
     ListaPeliculas peliculas = new ListaPeliculas();
     ListaInterpretes interpretes = new ListaInterpretes();
+
+
+    private CatalogoIMDB() {}
+    public CatalogoIMDB getInstance() {
+        if (miCatalogo == null) miCatalogo = new CatalogoIMDB();
+        return miCatalogo;
+    }
+
     /**
-     * Carga las películas del catálogo desde el fichero indicado
+     * Carga las películas del catálogo desde el fichero indicado. Es de orden O(n)
      * @param nomF Nombre del fichero que contiene las películas
      */
     public void cargarPeliculas(String nomF) {
@@ -33,24 +42,48 @@ public class CatalogoIMDB {
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("Error en el formato del archivo");
         }
-
-
     }
     /**
-     * Carga los intérpretes del catálogo desde el fichero indicado
+     * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m)
      * POST: se han cargado los intérpretes y se han calculado sus ratings
      * @param nomF Nombre del fichero que contiene los intérpretes
      */
-    public void cargarInterpretes(String nomF) {}
+    public void cargarInterpretes(String nomF) {
+        Path pth = Paths.get(nomF);
+        try {
+            /*Como tendremos un archivo muy grande, este método usará mucha memoria,
+            pero también será muy rápido*/
+            List<String> lineas = Files.readAllLines(pth);
+
+            Interprete inter;
+            for (String linea : lineas) {
+                String[] interDatos = linea.split("->");
+                inter = new Interprete(interDatos[0]);
+
+                String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
+                Pelicula pel;
+                for (String pelTitulo : pels) {
+                    pel = peliculas.buscarPelicula(pelTitulo);
+                    if (pel != null) inter.anadirPelicula(pel);
+                }
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error en la lectura del archivo");
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println("Error en el formato del archivo");
+        }
+    }
     /**
-     * Imprime por pantalla el nº de intérpretes de una película y sus nombres
+     * Imprime por pantalla el nº de intérpretes de una película y sus nombres. Es de orden O(n)
      * @param titulo Título de la película
      */
     public void imprimirInfoPelicula(String titulo) {
 
         Pelicula pel = peliculas.buscarPelicula(titulo);
         if (pel != null)
-            System.out.printf("%s -> (nª de interpretes = %s): %s%n", pel.getTitulo(), pel.getReparto().getLista().size(), pel.getReparto().toString());
+            System.out.printf("%s -> (nª de interpretes = %s): %s%n",
+                    pel.getTitulo(), pel.getReparto().getLista().size(), pel.getReparto().toString());
         else
             System.out.println("Película no encontrada en la base de datos.");
     }
@@ -63,7 +96,8 @@ public class CatalogoIMDB {
 
         Interprete inter = interpretes.buscarInterprete(nombre);
         if (inter != null)
-            System.out.printf("%s (Rating: %s) -> %s%n",inter.getNombre() ,inter.getRating(), inter.getFilmografia().toString());
+            System.out.printf("%s (Rating: %s) -> %s%n",
+                    inter.getNombre() ,inter.getRating(), inter.getFilmografia().toString());
         else
             System.out.println("Actor no encontrado en la base de datos.");
     }

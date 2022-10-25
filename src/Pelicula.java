@@ -70,4 +70,6 @@ public class Pelicula {
     public void setAno(int ano) {
         this.ano = ano;
     }
+
+    public ListaInterpretes getReparto() {return reparto;}
 }

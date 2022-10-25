@@ -46,18 +46,26 @@ public class CatalogoIMDB {
      * Imprime por pantalla el nº de intérpretes de una película y sus nombres
      * @param titulo Título de la película
      */
-    public void imprimirInfoPelicula(String titulo) {}
+    public void imprimirInfoPelicula(String titulo) {
+
+        Pelicula pel = peliculas.buscarPelicula(titulo);
+        if (pel != null)
+            System.out.printf("%s -> (nª de interpretes = %s): %s%n", pel.getTitulo(), pel.getReparto().getLista().size(), pel.getReparto().toString());
+        else
+            System.out.println("Película no encontrada en la base de datos.");
+    }
     /**
      * Imprime por pantalla el nombre del intérprete, su rating y los títulos
      * de sus películas.
      * @param nombre Nombre del intérprete
      */
     public void imprimirInfoInterprete(String nombre) {
-        Interprete inter = interpretes.buscarInterprete(nombre);
-        if (inter != null){
-            System.out.printf("%s (%s)->%s%n",inter.getNombre() ,inter.getRating(), inter.getFilmografia().toString());
-        }
 
+        Interprete inter = interpretes.buscarInterprete(nombre);
+        if (inter != null)
+            System.out.printf("%s (Rating: %s) -> %s%n",inter.getNombre() ,inter.getRating(), inter.getFilmografia().toString());
+        else
+            System.out.println("Actor no encontrado en la base de datos.");
     }
     /**
      * Añade un nuevo voto a una película

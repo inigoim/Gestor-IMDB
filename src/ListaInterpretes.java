@@ -20,8 +20,17 @@ public class ListaInterpretes {
         return null;
     }
 
-
     public ArrayList<Interprete> getLista() {
-        return lista;
+        return (ArrayList<Interprete>) lista.clone();
+    }
+
+    // Siguiendo el formato del fichero cast.txt, override del método toString para imprimir los interpretes de lista
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < lista.size() - 1; i++) {
+            str.append(lista.get(i)); str.append(", ");
+        }
+        str.append(lista.get(lista.size()-1));
+        return str.toString();
     }
 }

@@ -1,7 +1,7 @@
 public class Interprete {
     private String nombre;
     private float rating;
-    private ListaPeliculas filmografia;
+    private final ListaPeliculas filmografia;
     /**
      * Calcula y asigna el rating del intérprete basándose en el rating de sus películas
      * Es de orden O(n).
@@ -49,4 +49,6 @@ public class Interprete {
     public ListaPeliculas getFilmografia() {
         return filmografia;
     }
+
+    public String toString() {return getNombre();}
 }

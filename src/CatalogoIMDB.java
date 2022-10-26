@@ -42,7 +42,7 @@ public class CatalogoIMDB {
         }
     }
     /**
-     * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m*l)
+     * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m*log(l))
      * POST: se han cargado los intérpretes y se han calculado sus ratings
      * @param nomF Nombre del fichero que contiene los intérpretes
      */
@@ -53,14 +53,18 @@ public class CatalogoIMDB {
             Interprete inter;
             String linea;
             while ((linea = reader.readLine()) != null) {
+
                 String[] interDatos = linea.split("->");
                 inter = new Interprete(interDatos[0]);
-
                 String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
                 Pelicula pel;
+
                 for (String pelTitulo : pels) {
                     pel = peliculas.buscarPelicula(pelTitulo);
-                    if (pel != null) inter.anadirPelicula(pel);
+                    if (pel != null) {
+                        inter.anadirPelicula(pel);
+                        pel.anadirInterprete(inter);
+                    }
                 }
             }
         }
@@ -71,14 +75,14 @@ public class CatalogoIMDB {
         }
     }
     /**
-     * Imprime por pantalla el nº de intérpretes de una película y sus nombres. Es de orden O(n)
+     * Imprime por pantalla el nº de intérpretes de una película y sus nombres. Es de orden O(log(n))
      * @param titulo Título de la película
      */
     public void imprimirInfoPelicula(String titulo) {
 
         Pelicula pel = peliculas.buscarPelicula(titulo);
         if (pel != null)
-            System.out.printf("%s -> (nª de interpretes = %s): %s%n",
+            System.out.printf("%s %n%t%t %d interpretes: %s%n",
                     pel.getTitulo(), pel.getReparto().getLista().size(), pel.getReparto().toString());
         else
             System.out.println("Película no encontrada en la base de datos.");
@@ -100,7 +104,7 @@ public class CatalogoIMDB {
     /**
      * Añade un nuevo voto a una película
      * PRE: el valor del voto está entre 0.0 y 10.0.
-     * Es de orden O(n*m*l)
+     * Es de orden O(log(n)*m*l)
      * @param titulo Título de la película
      * @param voto Valor del voto
      */

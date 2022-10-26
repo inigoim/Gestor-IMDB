@@ -4,7 +4,7 @@ public class Pelicula {
     private float rating;
     private int numvotos;
 
-    private ListaInterpretes reparto;
+    private final ListaInterpretes reparto = new ListaInterpretes();
 
     public Pelicula(String titulo, int ano, float rating, int votos) {
         this.titulo = titulo;

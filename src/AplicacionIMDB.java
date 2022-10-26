@@ -1,5 +1,7 @@
 
+import java.sql.Time;
 import java.util.Scanner;
+import java.util.Timer;
 
 public class AplicacionIMDB {
 
@@ -10,7 +12,7 @@ public class AplicacionIMDB {
 		
 	    //TO DO: Cargar películas	
 		catalogo.cargarPeliculas("films.txt");
-
+		
 	    //TO DO Cargar intérpretes
 		catalogo.cargarInterpretes("cast.txt");
 		

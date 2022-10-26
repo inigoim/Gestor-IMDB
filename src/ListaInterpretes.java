@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class ListaInterpretes {
-    private ArrayList<Interprete> lista = new ArrayList<>();
+    private final ArrayList<Interprete> lista = new ArrayList<>();
     /**
      * Añade un intérprete a la lista. Es de orden O(1), el coste de añadir un elemento a un ArrayList
      * @param inter Intérprete a añadir
@@ -21,14 +21,15 @@ public class ListaInterpretes {
     }
 
     public ArrayList<Interprete> getLista() {
-        return (ArrayList<Interprete>) lista.clone();
+        return lista;
     }
 
     // Siguiendo el formato del fichero cast.txt, override del método toString para imprimir los interpretes de lista
     public String toString() {
+        if (lista.size() == 0) return "";
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < lista.size() - 1; i++) {
-            str.append(lista.get(i)); str.append(", ");
+            str.append(lista.get(i)); str.append("; ");
         }
         str.append(lista.get(lista.size()-1));
         return str.toString();

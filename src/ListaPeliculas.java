@@ -13,15 +13,25 @@ public class ListaPeliculas {
         lista.add(pel);
     }
     /**
-     * Busca una película en la lista y la devuelve. Es de orden O(n)
+     * Busca una película en la lista y la devuelve. Es de orden O(log(n)), se ha usado la busqueda dicotomica.
      * @param titulo Título de la película a buscar
      * @return la Película (si está en la lista), null en caso contrario
      */
     public Pelicula buscarPelicula(String titulo) {
-        for (Pelicula pel: lista)
-            if (pel.getTitulo().equals(titulo)) return pel;
+        int lower = 0;
+        int upper = lista.size() - 1;
+        int pos; String tituloActual;
+
+        while (lower <= upper) {
+            pos = (upper + lower) / 2;
+            tituloActual = lista.get(pos).getTitulo();
+
+            if      (titulo.compareTo(tituloActual) < 0) upper = pos - 1;
+            else if (titulo.compareTo(tituloActual) > 0) lower = pos + 1;
+            else return lista.get(pos);
+            }
         return null;
-    }
+        }
 
     public ArrayList<Pelicula> getLista() {
         return lista;

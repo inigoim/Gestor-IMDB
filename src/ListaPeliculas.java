@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ListaPeliculas {
     // Lista interna
-    private ArrayList<Pelicula> lista = new ArrayList<>();
+    private final ArrayList<Pelicula> lista = new ArrayList<>();
 
     /**
      * Añade una película a la lista. Es de orden O(1), el coste de añadir un elemento a un ArrayList
@@ -24,10 +24,15 @@ public class ListaPeliculas {
     }
 
     public ArrayList<Pelicula> getLista() {
-        return (ArrayList<Pelicula>) lista.clone();
+        return lista;
     }
 
-    // Siguiendo el formato del fichero cast.txt, override del método toString para imprimir las peliculas de lista
+    /**
+     * Siguiendo el formato del fichero cast.txt,
+     * override del método toString para imprimir las peliculas de lista.
+     * Es de orden O(n)
+     */
+
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < lista.size() - 1; i++) {

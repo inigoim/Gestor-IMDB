@@ -85,8 +85,8 @@ public class CatalogoIMDB {
             System.out.println("Película no encontrada en la base de datos.");
     }
     /**
-     * Imprime por pantalla el nombre del intérprete, su rating y los títulos. Es de orden O(n)
-     * de sus películas.
+     * Imprime por pantalla el nombre del intérprete, su rating y los títulos
+     * de sus películas. Es de orden O(n)
      * @param nombre Nombre del intérprete
      */
     public void imprimirInfoInterprete(String nombre) {
@@ -101,6 +101,7 @@ public class CatalogoIMDB {
     /**
      * Añade un nuevo voto a una película
      * PRE: el valor del voto está entre 0.0 y 10.0.
+     * Es de orden O(n*m*l)
      * @param titulo Título de la película
      * @param voto Valor del voto
      */

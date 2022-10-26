@@ -26,6 +26,7 @@ public class Interprete {
 
     public Interprete(String nombre) {
         this.nombre = nombre;
+        filmografia = new ListaPeliculas();
     }
 
     // Getters y Setters

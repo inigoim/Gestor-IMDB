@@ -1,10 +1,8 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 public class CatalogoIMDB {
     private static CatalogoIMDB miCatalogo;
@@ -66,6 +64,8 @@ public class CatalogoIMDB {
                         pel.anadirInterprete(inter);
                     }
                 }
+                inter.calcularRating();
+                interpretes.anadirInterprete(inter);
             }
         }
         catch (IOException e) {
@@ -97,7 +97,7 @@ public class CatalogoIMDB {
         Interprete inter = interpretes.buscarInterprete(nombre);
         if (inter != null)
             System.out.printf("%s (Rating: %s) -> %s%n",
-                    inter.getNombre() ,inter.getRating(), inter.getFilmografia().toString());
+                    inter.getNombre() ,inter.getRating(), inter.getFilmografia());
         else
             System.out.println("Actor no encontrado en la base de datos.");
     }

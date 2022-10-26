@@ -10,9 +10,7 @@ public class CatalogoIMDB {
     ListaInterpretes interpretes = new ListaInterpretes();
 
 
-    private CatalogoIMDB() {
-    }
-
+    private CatalogoIMDB() {}
     public static CatalogoIMDB getInstance() {
         if (miCatalogo == null) miCatalogo = new CatalogoIMDB();
         return miCatalogo;
@@ -20,7 +18,6 @@ public class CatalogoIMDB {
 
     /**
      * Carga las películas del catálogo desde el fichero indicado. Es de orden O(n)
-     *
      * @param nomF Nombre del fichero que contiene las películas
      */
     public void cargarPeliculas(String nomF) {
@@ -42,11 +39,9 @@ public class CatalogoIMDB {
             e.printStackTrace();
         }
     }
-
     /**
      * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m*log(l))
      * POST: se han cargado los intérpretes y se han calculado sus ratings
-     *
      * @param nomF Nombre del fichero que contiene los intérpretes
      */
     public void cargarInterpretes(String nomF) {
@@ -72,16 +67,15 @@ public class CatalogoIMDB {
                 inter.calcularRating();
                 interpretes.anadirInterprete(inter);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("Error en la lectura del archivo");
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("Error en el formato del archivo");
         }
     }
-
     /**
      * Imprime por pantalla el nº de intérpretes de una película y sus nombres. Es de orden O(log(n))
-     *
      * @param titulo Título de la película
      */
     public void imprimirInfoPelicula(String titulo) {
@@ -93,30 +87,26 @@ public class CatalogoIMDB {
         else
             System.out.println("Película no encontrada en la base de datos.");
     }
-
     /**
      * Imprime por pantalla el nombre del intérprete, su rating y los títulos
      * de sus películas. Es de orden O(n)
-     *
      * @param nombre Nombre del intérprete
      */
     public void imprimirInfoInterprete(String nombre) {
 
         Interprete inter = interpretes.buscarInterprete(nombre);
         if (inter != null)
-            System.out.printf("%s (Rating: %s) -> %s%n",
-                    inter.getNombre(), inter.getRating(), inter.getFilmografia());
+            System.out.printf("%s (Rating: %.2f) -> %s%n",
+                    inter.getNombre() ,inter.getRating(), inter.getFilmografia());
         else
             System.out.println("Actor no encontrado en la base de datos.");
     }
-
     /**
      * Añade un nuevo voto a una película
      * PRE: el valor del voto está entre 0.0 y 10.0.
      * Es de orden O(log(n)*m*l)
-     *
      * @param titulo Título de la película
-     * @param voto   Valor del voto
+     * @param voto Valor del voto
      */
     public void anadirVoto(String titulo, float voto) {
         Pelicula pelicula = peliculas.buscarPelicula(titulo);

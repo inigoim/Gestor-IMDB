@@ -1,5 +1,6 @@
 
 import java.sql.Time;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Timer;
 
@@ -28,31 +29,44 @@ public class AplicacionIMDB {
 			System.out.println("3. Añadir voto a película");
 
 			System.out.println("0. Salir");
-			//TODO Gestionar excepciones
-			opcion = Integer.parseInt(sc.nextLine());
-			switch(opcion) {
-				//TODO Gestionar excepciones
-				case 1:
-					System.out.println("Introduce el nombre de una película: ");
-					String tituloPelicula = sc.nextLine();
-					catalogo.imprimirInfoPelicula(tituloPelicula);
-					break;
 
-				case 2:
-					System.out.println("Introduce el nombre de un interprete: ");
-					String nombreInterprete = sc.nextLine();
-					catalogo.imprimirInfoPelicula(nombreInterprete);
-					break;
+			try {
+				opcion = Integer.parseInt(sc.nextLine());
+				switch(opcion) {
+					//TODO Gestionar excepciones
 
-				case 3:
-					System.out.println("Introduce el nombre de la película que deseas puntuar: ");
-					tituloPelicula = sc.nextLine();
-					System.out.println("Introduce la punctuation que quieres darle a " + tituloPelicula + ": ");
-					float puntuacion = Float.parseFloat(sc.nextLine());
-					catalogo.anadirVoto(tituloPelicula, puntuacion);
-					break;
+					case 1:
+						System.out.println("Introduce el nombre de una película: ");
+						String tituloPelicula = sc.nextLine();
+						catalogo.imprimirInfoPelicula(tituloPelicula);
+						break;
 
-				default:break;
+					case 2:
+						System.out.println("Introduce el nombre de un interprete: ");
+						String nombreInterprete = sc.nextLine();
+						catalogo.imprimirInfoInterprete(nombreInterprete);
+						break;
+
+					case 3:
+						System.out.println("Introduce el nombre de la película que deseas puntuar: ");
+						tituloPelicula = sc.nextLine();
+						System.out.printf("Introduce la punctuation que quieres darle a %s :", tituloPelicula);
+						float puntuacion = Float.parseFloat(sc.nextLine());
+						catalogo.anadirVoto(tituloPelicula, puntuacion);
+						System.out.printf("Has votado a %s con un %s",tituloPelicula,puntuacion);
+
+						break;
+
+					default:break;
+				}
+			}
+			catch(NumberFormatException e)
+			{
+				System.out.println("#ERROR# Dato introducido no valido, Vuelve a Introducir el numero de la opción deseada. ");
+			}
+			catch(NoSuchElementException | IllegalStateException e)
+			{
+				System.out.println("#ERROR# Imposible recorrer la linea");
 			}
 		}
 		sc.close();

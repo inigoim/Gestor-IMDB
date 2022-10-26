@@ -16,7 +16,7 @@ public class ListaInterpretes {
      */
     public Interprete buscarInterprete(String nombre) {
         for (Interprete inter: lista)
-            if (inter.getNombre().equals(nombre)) return inter;
+            if (inter.getNombre().equalsIgnoreCase(nombre)) return inter;
         return null;
     }
 

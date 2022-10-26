@@ -82,7 +82,7 @@ public class CatalogoIMDB {
 
         Pelicula pel = peliculas.buscarPelicula(titulo);
         if (pel != null)
-            System.out.printf("%s %n%t%t %d interpretes: %s%n",
+            System.out.printf("%s -> [%d interpretes: %s]%n",
                     pel.getTitulo(), pel.getReparto().getLista().size(), pel.getReparto().toString());
         else
             System.out.println("Película no encontrada en la base de datos.");
@@ -109,6 +109,8 @@ public class CatalogoIMDB {
      * @param voto Valor del voto
      */
     public void anadirVoto(String titulo, float voto) {
-        peliculas.buscarPelicula(titulo).anadirVoto(voto);
+        Pelicula pelicula = peliculas.buscarPelicula(titulo);
+        if (pelicula != null)
+            pelicula.anadirVoto(voto);
     }
 }

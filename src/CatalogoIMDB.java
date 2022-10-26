@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -21,38 +24,35 @@ public class CatalogoIMDB {
      */
     public void cargarPeliculas(String nomF) {
         Path pth = Path.of(nomF);
-        try {
-            /*Como tendremos un archivo muy grande, este método usará mucha memoria,
-            pero también será muy rápido*/
-            List<String> lineas = Files.readAllLines(pth);
-
+        Charset windows1252 = Charset.forName("windows-1252");
+        try (BufferedReader reader = Files.newBufferedReader(pth, windows1252)) {
             Pelicula pel;
-            for (String linea : lineas) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
                 String[] pelDatos = linea.split("\t");
-                pel = new Pelicula(pelDatos[0], Integer.parseInt(pelDatos[2]),
-                        Float.parseFloat(pelDatos[3]), Integer.parseInt(pelDatos[4]));
+                pel = new Pelicula(pelDatos[0], Integer.parseInt(pelDatos[1]),
+                        Float.parseFloat(pelDatos[2]), Integer.parseInt(pelDatos[3]));
                 peliculas.anadirPelicula(pel);
             }
         } catch (IOException e) {
             System.out.println("Error en la lectura del archivo");
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("Error en el formato del archivo");
+            e.printStackTrace();
         }
     }
     /**
-     * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m)
+     * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m*l)
      * POST: se han cargado los intérpretes y se han calculado sus ratings
      * @param nomF Nombre del fichero que contiene los intérpretes
      */
     public void cargarInterpretes(String nomF) {
         Path pth = Path.of(nomF);
-        try {
-            /*Como tendremos un archivo muy grande, este método usará mucha memoria,
-            pero también será muy rápido*/
-            List<String> lineas = Files.readAllLines(pth);
-
+        Charset windows1252 = Charset.forName("windows-1252");
+        try (BufferedReader reader = Files.newBufferedReader(pth, windows1252)) {
             Interprete inter;
-            for (String linea : lineas) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
                 String[] interDatos = linea.split("->");
                 inter = new Interprete(interDatos[0]);
 

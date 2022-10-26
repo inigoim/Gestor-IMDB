@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class CatalogoIMDB {
@@ -21,7 +20,7 @@ public class CatalogoIMDB {
      * @param nomF Nombre del fichero que contiene las películas
      */
     public void cargarPeliculas(String nomF) {
-        Path pth = Paths.get(nomF);
+        Path pth = Path.of(nomF);
         try {
             /*Como tendremos un archivo muy grande, este método usará mucha memoria,
             pero también será muy rápido*/
@@ -46,7 +45,7 @@ public class CatalogoIMDB {
      * @param nomF Nombre del fichero que contiene los intérpretes
      */
     public void cargarInterpretes(String nomF) {
-        Path pth = Paths.get(nomF);
+        Path pth = Path.of(nomF);
         try {
             /*Como tendremos un archivo muy grande, este método usará mucha memoria,
             pero también será muy rápido*/

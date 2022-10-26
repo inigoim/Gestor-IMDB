@@ -5,7 +5,7 @@ public class AplicacionIMDB {
 
 	public static CatalogoIMDB catalogo;
 	public static void main(String[] args){
-		catalogo = catalogo.getInstance();
+		catalogo = CatalogoIMDB.getInstance();
           //TO DO: ...
 		
 	    //TO DO: Cargar películas	
@@ -26,9 +26,10 @@ public class AplicacionIMDB {
 			System.out.println("3. Añadir voto a película");
 
 			System.out.println("0. Salir");
+			//TODO Gestionar excepciones
 			opcion = Integer.parseInt(sc.nextLine());
 			switch(opcion) {
-
+				//TODO Gestionar excepciones
 				case 1:
 					System.out.println("Introduce el nombre de una película: ");
 					String tituloPelicula = sc.nextLine();

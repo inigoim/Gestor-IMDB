@@ -5,13 +5,13 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class CatalogoIMDB {
-    private CatalogoIMDB miCatalogo;
+    private static CatalogoIMDB miCatalogo;
     ListaPeliculas peliculas = new ListaPeliculas();
     ListaInterpretes interpretes = new ListaInterpretes();
 
 
     private CatalogoIMDB() {}
-    public CatalogoIMDB getInstance() {
+    public static CatalogoIMDB getInstance() {
         if (miCatalogo == null) miCatalogo = new CatalogoIMDB();
         return miCatalogo;
     }

@@ -15,16 +15,17 @@ public class Pelicula {
 
     /**
      * Añade un intérprete a la película. Es de orden O(1)
+     *
      * @param inter Intérprete a añadir
      */
-    public void anadirInterprete(Interprete inter)
-    {
+    public void anadirInterprete(Interprete inter) {
         reparto.anadirInterprete(inter);
     }
 
     /**
      * Añade un nuevo voto a la película. Es de orden O(n*m)
      * POST: se han recalculado los ratings de sus intérpretes
+     *
      * @param voto Voto entre 0.0 y 10.0
      */
     public void anadirVoto(float voto) {
@@ -34,7 +35,6 @@ public class Pelicula {
             i.calcularRating();
         }
     }
-
 
 
     // Getters y Setters
@@ -71,5 +71,7 @@ public class Pelicula {
         this.ano = ano;
     }
 
-    public ListaInterpretes getReparto() {return reparto;}
+    public ListaInterpretes getReparto() {
+        return reparto;
+    }
 }

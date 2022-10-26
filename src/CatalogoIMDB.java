@@ -96,7 +96,7 @@ public class CatalogoIMDB {
 
         Interprete inter = interpretes.buscarInterprete(nombre);
         if (inter != null)
-            System.out.printf("%s (Rating: %s) -> %s%n",
+            System.out.printf("%s (Rating: %.2f) -> %s%n",
                     inter.getNombre() ,inter.getRating(), inter.getFilmografia());
         else
             System.out.println("Actor no encontrado en la base de datos.");

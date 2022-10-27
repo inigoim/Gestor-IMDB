@@ -21,20 +21,19 @@ public class ListaPeliculas {
      * @return la Película (si está en la lista), null en caso contrario
      */
     public Pelicula buscarPelicula(String titulo) {
-        int lower = 0;
-        int upper = lista.size() - 1;
-        int pos;
-        String tituloActual;
-
-        while (lower <= upper) {
-            pos = (upper + lower) / 2;
-            tituloActual = lista.get(pos).getTitulo();
-
-            if (titulo.compareTo(tituloActual) < 0) upper = pos - 1;
-            else if (titulo.compareTo(tituloActual) > 0) lower = pos + 1;
-            else return lista.get(pos);
+        int izq, der, medio;
+        izq = 0;
+        der = lista.size() - 1;
+        medio = (izq + der) / 2;
+        while (izq < der) {
+            if (titulo.equals(lista.get(medio).getTitulo())) return lista.get(medio);
+            if (titulo.compareTo(lista.get(medio).getTitulo()) < 0)
+                der = medio - 1;
+            else izq = medio + 1;
+            medio = (izq + der) / 2;
         }
-        return null;
+        if (titulo.equals(lista.get(der).getTitulo())) return lista.get(der);
+        else return null;
     }
 
     public ArrayList<Pelicula> getLista() {

@@ -54,7 +54,15 @@ public class Interprete {
         return filmografia;
     }
 
+    public int getNumPeliculas() {return getFilmografia().getLista().size();}
+
     public String toString() {
-        return getNombre();
+        StringBuilder str = new StringBuilder();
+        str.append(String.format("Nombre: %s%n", getNombre()));
+        str.append(String.format("Rating: %f%n",getRating()));
+        str.append(String.format("Total de películas del intérprete: %d%n", getNumPeliculas()));
+        for (Pelicula pel: getFilmografia().getLista()) 
+            str.append(pel.getTitulo()).append(System.lineSeparator());
+        return str.toString();
     }
 }

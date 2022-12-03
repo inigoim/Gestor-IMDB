@@ -74,4 +74,23 @@ public class Pelicula {
     public ListaInterpretes getReparto() {
         return reparto;
     }
+
+    public int getNumInterpretes() {return getReparto().getLista().size();}
+
+    /**
+     * Devuelve toda la información de la película
+     * @return múltiples lineas con información como el titulo, año, rating...
+     * Es de orden O(N) (N = numero de interpretes de la película)
+     */
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append(String.format("Título: %s%n", getTitulo()));
+        str.append(String.format("Año: %d%n", getAno()));
+        str.append(String.format("Rating: %.1f%n", getRating()));
+        str.append(String.format("Num. votos: %,d%n", getNumvotos()));
+        str.append(String.format("Total de intérpretes de la película: %,d%n", getNumInterpretes()));
+        for (Interprete inter: getReparto().getLista())
+            str.append(inter.getNombre()).append(System.lineSeparator());
+        return str.toString();
+    }
 }

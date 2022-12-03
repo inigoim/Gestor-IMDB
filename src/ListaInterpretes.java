@@ -33,7 +33,7 @@ public class ListaInterpretes {
         if (lista.size() == 0) return "";
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < lista.size() - 1; i++) {
-            str.append(lista.get(i));
+            str.append(lista.get(i).getNombre());
             str.append("; ");
         }
         str.append(lista.get(lista.size() - 1));

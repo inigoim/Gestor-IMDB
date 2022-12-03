@@ -21,8 +21,11 @@ public class CatalogoIMDB {
      * @param nomF Nombre del fichero que contiene las películas
      */
     public void cargarPeliculas(String nomF) {
+        System.out.println("Cargando películas...");
+        int numPeliculas = 0;
         Path pth = Path.of(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
+
         try (BufferedReader reader = Files.newBufferedReader(pth, windows1252)) {
             Pelicula pel;
             String linea;
@@ -31,13 +34,18 @@ public class CatalogoIMDB {
                 pel = new Pelicula(pelDatos[0], Integer.parseInt(pelDatos[1]),
                         Float.parseFloat(pelDatos[2]), Integer.parseInt(pelDatos[3]));
                 peliculas.anadirPelicula(pel);
+                if (++numPeliculas % 100000 == 0)
+                    System.out.printf("Cargadas %,d películas\r", numPeliculas);
             }
         } catch (IOException e) {
             System.out.println("Error en la lectura del archivo");
+            e.printStackTrace();
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("Error en el formato del archivo");
             e.printStackTrace();
         }
+        System.out.printf("En el catálogo hay %,d películas.%n", numPeliculas);
+
     }
     /**
      * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m*log(l))
@@ -45,8 +53,11 @@ public class CatalogoIMDB {
      * @param nomF Nombre del fichero que contiene los intérpretes
      */
     public void cargarInterpretes(String nomF) {
+        System.out.println("Cargando intérpretes...");
+        int numInterpretes = 0;
         Path pth = Path.of(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
+
         try (BufferedReader reader = Files.newBufferedReader(pth, windows1252)) {
             Interprete inter;
             String linea;
@@ -66,6 +77,8 @@ public class CatalogoIMDB {
                 }
                 inter.calcularRating();
                 interpretes.anadirInterprete(inter);
+                if (++numInterpretes % 100000 == 0)
+                    System.out.printf("Cargados %,d intérpretes\r", numInterpretes);
             }
         }
         catch (IOException e) {
@@ -73,6 +86,7 @@ public class CatalogoIMDB {
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("Error en el formato del archivo");
         }
+        System.out.printf("En el catálogo hay %,d intérpretes.%n", numInterpretes);
     }
     /**
      * Imprime por pantalla el nº de intérpretes de una película y sus nombres. Es de orden O(log(n))
@@ -82,8 +96,7 @@ public class CatalogoIMDB {
 
         Pelicula pel = peliculas.buscarPelicula(titulo);
         if (pel != null)
-            System.out.printf("%s -> [%d interpretes: %s]%n",
-                    pel.getTitulo(), pel.getReparto().getLista().size(), pel.getReparto().toString());
+            System.out.println(pel);
         else
             System.out.println("Película no encontrada en la base de datos.");
     }
@@ -96,10 +109,9 @@ public class CatalogoIMDB {
 
         Interprete inter = interpretes.buscarInterprete(nombre);
         if (inter != null)
-            System.out.printf("%s (Rating: %.2f) -> %s%n",
-                    inter.getNombre() ,inter.getRating(), inter.getFilmografia());
+            System.out.println(inter);
         else
-            System.out.println("Actor no encontrado en la base de datos.");
+            System.out.println("Intérprete no encontrado en la base de datos.");
     }
     /**
      * Añade un nuevo voto a una película

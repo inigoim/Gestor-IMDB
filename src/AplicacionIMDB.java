@@ -6,6 +6,7 @@ public class AplicacionIMDB {
     public static CatalogoIMDB catalogo;
 
     public static void main(String[] args) {
+        System.out.println("¡Bienvenid@ a la aplicación de IMDB!");
         catalogo = CatalogoIMDB.getInstance();
         catalogo.cargarPeliculas("films.txt");
 
@@ -16,6 +17,7 @@ public class AplicacionIMDB {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
 
+        System.out.println();
         while (opcion != 0) {
             System.out.println("Escoja una opción:");
             System.out.println("1. Mostrar información de película");
@@ -26,6 +28,7 @@ public class AplicacionIMDB {
 
             try {
                 opcion = Integer.parseInt(sc.nextLine());
+                System.out.println();
                 switch (opcion) {
 
 
@@ -42,12 +45,17 @@ public class AplicacionIMDB {
                         break;
 
                     case 3:
-                        System.out.println("Introduce el nombre de la película que deseas puntuar: ");
+                        System.out.println("Introduzca el título de una película:");
                         tituloPelicula = sc.nextLine();
-                        System.out.printf("Introduce la punctuation que quieres darle a %s :", tituloPelicula);
+                        System.out.println("Introduzca una puntuación entre 0.0 y 10.0");
                         float puntuacion = Float.parseFloat(sc.nextLine());
-                        catalogo.anadirVoto(tituloPelicula, puntuacion);
-                        System.out.printf("Has votado a %s con un %s", tituloPelicula, puntuacion);
+                        Pelicula pel = catalogo.peliculas.buscarPelicula(tituloPelicula);
+                        if (pel!= null) {
+                            pel.anadirVoto(puntuacion);
+                            System.out.printf("El nuevo rating de la película es: %f%n", pel.getRating());
+                        }
+                        else
+                            System.out.println("La película introducida no está en la base de datos.");
 
                         break;
 

@@ -12,10 +12,14 @@ public class Interprete {
         float sumRating = 0;
         int numvotos = 0;
         for (Pelicula pel : filmografia.getLista()) {
-            sumRating += pel.getRating() * pel.getNumvotos();
-            numvotos += pel.getNumvotos();
+            if (pel.getRating() != -1) {
+                sumRating += pel.getRating() * pel.getNumvotos();
+                numvotos += pel.getNumvotos();
+            }
         }
-        setRating(sumRating / numvotos);
+        if (numvotos > 0) setRating(sumRating / numvotos);
+        else setRating(-1);
+
     }
 
     /**

@@ -23,9 +23,10 @@ public class Pelicula {
     }
 
     /**
-     * Añade un nuevo voto a la película. Es de orden O(n*m)
+     * Añade un nuevo voto a la película.
      * POST: se han recalculado los ratings de sus intérpretes
-     *
+     * Es de orden O(n*m), con n="número de intérpretes de la película",
+     * m="promedio de películas de cada intérprete"
      * @param voto Voto entre 0.0 y 10.0
      */
     public void anadirVoto(float voto) {
@@ -79,8 +80,8 @@ public class Pelicula {
 
     /**
      * Devuelve toda la información de la película
-     * @return múltiples lineas con información como el titulo, año, rating...
-     * Es de orden O(N) (N = numero de interpretes de la película)
+     * @return Múltiples líneas con información como el titulo, año, rating...
+     * Es de orden O(N) (N = número de interpretes de la película)
      */
     public String toString() {
         StringBuilder str = new StringBuilder();

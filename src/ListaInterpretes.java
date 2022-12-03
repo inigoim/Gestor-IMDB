@@ -13,8 +13,8 @@ public class ListaInterpretes {
     }
 
     /**
-     * Busca un intérprete en la lista y lo devuelve.  Es de orden O(n)
-     *
+     * Busca un intérprete en la lista y lo devuelve. Es de orden O(n)
+     * n="número de intérpretes en la lista"
      * @param nombre Nombre del intérprete a buscar
      * @return el intérprete (si está en la lista), null en caso contrario
      */
@@ -28,7 +28,11 @@ public class ListaInterpretes {
         return lista;
     }
 
-    // Siguiendo el formato del fichero cast.txt, override del método toString para imprimir los interpretes de lista
+    /**
+     * Siguiendo el formato del fichero cast.txt, override del método toString para imprimir los intérpretes de lista
+     * Es de orden O(n), n="número de intérpretes en la lista"
+     */
+
     public String toString() {
         if (lista.size() == 0) return "";
         StringBuilder str = new StringBuilder();

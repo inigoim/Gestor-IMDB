@@ -15,7 +15,8 @@ public class ListaPeliculas {
     }
 
     /**
-     * Busca una película en la lista y la devuelve. Es de orden O(log(n)), se ha usado la busqueda dicotomica.
+     * Busca una película en la lista y la devuelve. Es de orden O(log(n))
+     * n="número de películas en la lista", se ha usado la búsqueda dicotómica.
      *
      * @param titulo Título de la película a buscar
      * @return la Película (si está en la lista), null en caso contrario
@@ -42,8 +43,8 @@ public class ListaPeliculas {
 
     /**
      * Siguiendo el formato del fichero cast.txt,
-     * override del método toString para imprimir las peliculas de lista.
-     * Es de orden O(n)
+     * override del método toString para imprimir las películas de lista.
+     * Es de orden O(n), con n="número de películas en la lista"
      */
 
     public String toString() {

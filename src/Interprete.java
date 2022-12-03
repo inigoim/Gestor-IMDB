@@ -5,7 +5,7 @@ public class Interprete {
 
     /**
      * Calcula y asigna el rating del intérprete basándose en el rating de sus películas
-     * Es de orden O(n).
+     * Es de orden O(n), n="número de películas del intérprete"
      */
 
     public void calcularRating() {
@@ -60,6 +60,10 @@ public class Interprete {
 
     public int getNumPeliculas() {return getFilmografia().getLista().size();}
 
+    /**
+     * @return Interprete en el formato en el que aparece en el ejemplo
+     * Es de orden O(n), n="número de películas del intérprete"
+     */
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(String.format("Nombre: %s%n", getNombre()));

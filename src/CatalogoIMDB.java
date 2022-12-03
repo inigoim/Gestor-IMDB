@@ -17,7 +17,8 @@ public class CatalogoIMDB {
     }
 
     /**
-     * Carga las películas del catálogo desde el fichero indicado. Es de orden O(n)
+     * Carga las películas del catálogo desde el fichero indicado.
+     * Es de orden O(n), con n="número de películas en el fichero"
      * @param nomF Nombre del fichero que contiene las películas
      */
     public void cargarPeliculas(String nomF) {
@@ -49,6 +50,8 @@ public class CatalogoIMDB {
     }
     /**
      * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m*log(l))
+     * n="número de intérpretes en el fichero", m="promedio de películas en las que aparece cada intérprete"
+     * l="número de películas en el catálogo"
      * POST: se han cargado los intérpretes y se han calculado sus ratings
      * @param nomF Nombre del fichero que contiene los intérpretes
      */
@@ -89,7 +92,8 @@ public class CatalogoIMDB {
         System.out.printf("En el catálogo hay %,d intérpretes.%n", numInterpretes);
     }
     /**
-     * Imprime por pantalla el nº de intérpretes de una película y sus nombres. Es de orden O(log(n))
+     * Imprime por pantalla el número de intérpretes de una película y sus nombres. Es de orden O(log(n))
+     * n="número de películas en el catálogo"
      * @param titulo Título de la película
      */
     public void imprimirInfoPelicula(String titulo) {
@@ -102,7 +106,7 @@ public class CatalogoIMDB {
     }
     /**
      * Imprime por pantalla el nombre del intérprete, su rating y los títulos
-     * de sus películas. Es de orden O(n)
+     * de sus películas. Es de orden O(n), n="número de intérpretes en el catálogo"
      * @param nombre Nombre del intérprete
      */
     public void imprimirInfoInterprete(String nombre) {
@@ -116,7 +120,8 @@ public class CatalogoIMDB {
     /**
      * Añade un nuevo voto a una película
      * PRE: el valor del voto está entre 0.0 y 10.0.
-     * Es de orden O(log(n)*m*l)
+     * Es de orden O(log(n) + m*l) n="número de películas en el catálogo",
+     * m="número de intérpretes de la película", l="promedio de películas de cada intérprete"
      * @param titulo Título de la película
      * @param voto Valor del voto
      */

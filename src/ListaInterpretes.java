@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ListaInterpretes {
+public class ListaInterpretes implements InterfazInterpretes{
     private final ArrayList<Interprete> lista = new ArrayList<>();
 
     /**

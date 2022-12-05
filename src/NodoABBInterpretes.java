@@ -1,8 +1,8 @@
-public class NodoABBInterpretes  implements InterfazInterpretes{
+public class NodoABBInterpretes implements InterfazInterpretes{
 
-    Interprete info;
-    NodoABBInterpretes izq;
-    NodoABBInterpretes der;
+    private Interprete info;
+    private NodoABBInterpretes izq;
+    private NodoABBInterpretes der;
 
     //métodos básicos
     public NodoABBInterpretes() {
@@ -37,13 +37,25 @@ public class NodoABBInterpretes  implements InterfazInterpretes{
         }
     }
     /**
-     * Elimina un intérprete del árbol (puede seguir estando en las listas de
-     * intérpretes de las películas)
-     * @param nombre Nombre del intérprete a eliminar
-     * @return el Interprete (si se ha eliminado), null en caso contrario
+     * Busca un intérprete en la lista y lo devuelve
+     * @param nombre Nombre del intérprete a buscar
+     * @return el intérprete (si está en la lista), null en caso contrario
      */
     public Interprete buscarInterprete(String nombre){
-        return null;
+        if (nombre.equalsIgnoreCase(info.getNombre()))
+            return info;
+        else if(nombre.compareTo(info.getNombre())<0){
+            if(tieneIzq()){
+                return izq.buscarInterprete(nombre);
+            }
+            else return null;
+        }
+        else {
+            if(tieneDer()){
+                return der.buscarInterprete(nombre);
+            }
+            else return null;
+        }
     }
 
 }

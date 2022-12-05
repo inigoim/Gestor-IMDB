@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class ABBInterpretes implements InterfazInterpretes{
     NodoABBInterpretes raiz;
 
@@ -37,5 +39,24 @@ public class ABBInterpretes implements InterfazInterpretes{
     public Interprete buscarInterprete(String nombre) {
         if (esVacio()) return null;
         else return raiz.buscarInterprete(nombre);
+    }
+
+    /**
+     * Elimina un intérprete del árbol (puede seguir estando en las listas de
+     * intérpretes de las películas)
+     * @param nombre Nombre del intérprete a eliminar
+     * @return el Interprete (si se ha eliminado), null en caso contrario
+     */
+    public Interprete eliminarInterprete(String nombre){
+        return null;
+    }
+
+    /**
+     * Devuelve el nº de elementos del árbol.
+     * @return nº de elementos del árbol
+     */
+    public int size(){
+        if (esVacio()) return 0;
+        else return raiz.size();
     }
 }

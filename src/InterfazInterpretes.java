@@ -3,7 +3,7 @@ public interface InterfazInterpretes {
 
     public Interprete buscarInterprete(String nombre);
 
-    //public Interprete eliminarInterprete(String nombre);
+    public Interprete eliminarInterprete(String nombre);
 
-    //public int size();
+    public int size();
 }

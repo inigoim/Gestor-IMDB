@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class ListaInterpretes implements InterfazInterpretes{
     private final ArrayList<Interprete> lista = new ArrayList<>();
 
+    public ArrayList<Interprete> getLista() {
+        return lista;
+    }
+
     /**
      * Añade un intérprete a la lista. Es de orden O(1), el coste de añadir un elemento a un ArrayList
      *
@@ -24,9 +28,25 @@ public class ListaInterpretes implements InterfazInterpretes{
         return null;
     }
 
-    public ArrayList<Interprete> getLista() {
-        return lista;
+    /**
+     * Elimina un intérprete del árbol (puede seguir estando en las listas de
+     * intérpretes de las películas)
+     * @param nombre Nombre del intérprete a eliminar
+     * @return el Interprete (si se ha eliminado), null en caso contrario
+     */
+    public Interprete eliminarInterprete(String nombre){
+        Interprete elem = buscarInterprete(nombre);
+        lista.remove(elem);
+        return elem;
     }
+
+    /**
+     * Devuelve el nº de elementos del árbol.
+     * @return nº de elementos del árbol
+     */
+    public int size(){return lista.size();}
+
+
 
     /**
      * Siguiendo el formato del fichero cast.txt, override del método toString para imprimir los intérpretes de lista

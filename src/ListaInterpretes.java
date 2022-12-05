@@ -1,7 +1,7 @@
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class ListaInterpretes {
-    private final ArrayList<Interprete> lista = new ArrayList<>();
+    private final Vector<Interprete> lista = new Vector<>();
 
     /**
      * Añade un intérprete a la lista. Es de orden O(1), el coste de añadir un elemento a un ArrayList
@@ -24,7 +24,7 @@ public class ListaInterpretes {
         return null;
     }
 
-    public ArrayList<Interprete> getLista() {
+    public Vector<Interprete> getLista() {
         return lista;
     }
 

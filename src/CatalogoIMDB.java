@@ -3,8 +3,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
+import java.util.stream.Stream;
 
 public class CatalogoIMDB {
     private static CatalogoIMDB miCatalogo;
@@ -64,71 +63,42 @@ public class CatalogoIMDB {
         Charset windows1252 = Charset.forName("windows-1252");
 
         try  {
-            List<String> lineas = Files.readAllLines(pth, windows1252);
-            int threads = Runtime.getRuntime().availableProcessors();
-            int inicio, fin;
-            CountDownLatch latch = new CountDownLatch(threads);
-            for (int i=0; i<threads; i++) {
-                inicio = Math.round(i * (lineas.size() / (float) threads));
-                fin = Math.round((i+1) * (lineas.size() / (float) threads));
-                CargadorInterpretes thread = new CargadorInterpretes(inicio, fin, lineas, latch);
-                thread.start();
-            }
-            latch.await();
+            Stream<String> lineas = Files.readAllLines(pth, windows1252).parallelStream();
+            lineas.forEach(this::cargarInterprete);
             System.out.printf("En el catálogo hay %,d intérpretes.%n", interpretes.getLista().size());
         }
         catch (IOException e) {
             System.out.println("Error en la lectura del archivo:");
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
     }
 
     /**
-     * Thread que se encarga de cargar el segmento indicado de las líneas de intérpretes.
+     * Función auxiliar que se usa en cargarInterpretes
      */
-    private class CargadorInterpretes extends Thread {
-        private final int inicio, fin;
-        private final List<String> lineas;
-        CountDownLatch latch;
-
-        public CargadorInterpretes(int inicio, int fin, List<String> lineas, CountDownLatch latch) {
-            this.inicio = inicio;
-            this.fin = fin;
-            this.lineas = lineas;
-            this.latch = latch;
-        }
-
-        @Override
-        public void run() {
-            Interprete inter;
+    private void cargarInterprete(String linea) {
+        try {
+            String[] interDatos = linea.split("->");
+            Interprete inter = new Interprete(interDatos[0]);
+            String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
             Pelicula pel;
-            for (int i = inicio; i < fin; i++) {
-                try {
-                    String[] interDatos = lineas.get(i).split("->");
-                    inter = new Interprete(interDatos[0]);
-                    String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
-
-                    for (String pelTitulo : pels) {
-                        pel = peliculas.buscarPelicula(pelTitulo);
-                        if (pel != null) {
-                            inter.anadirPelicula(pel);
-                            pel.anadirInterprete(inter);
-                        }
-                    }
-                    inter.calcularRating();
-                    interpretes.anadirInterprete(inter);
-                }
-                catch (IndexOutOfBoundsException | NumberFormatException e) {
-                    System.out.println("Error de formato en la línea " + i);
-                    System.out.println(e.getMessage());
+            for (String pelTitulo : pels) {
+                pel = peliculas.buscarPelicula(pelTitulo);
+                if (pel != null) {
+                    inter.anadirPelicula(pel);
+                    pel.anadirInterprete(inter);
                 }
             }
-            latch.countDown();
+            inter.calcularRating();
+            interpretes.anadirInterprete(inter);
+        }
+        catch (IndexOutOfBoundsException | NumberFormatException e) {
+            System.out.printf("Error de formato en:%n\"%s\"%n", linea);
+            System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Imprime por pantalla el número de intérpretes de una película y sus nombres. Es de orden O(log(n))

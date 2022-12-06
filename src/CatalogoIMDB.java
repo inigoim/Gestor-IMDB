@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class CatalogoIMDB {
     private static CatalogoIMDB miCatalogo;
     ListaPeliculas peliculas = new ListaPeliculas();
-    ListaInterpretes interpretes = new ListaInterpretes();
+     InterfazInterpretes interpretes = new ABBInterpretes();
 
 
     private CatalogoIMDB() {}
@@ -65,7 +65,7 @@ public class CatalogoIMDB {
         try  {
             Stream<String> lineas = Files.readAllLines(pth, windows1252).parallelStream();
             lineas.forEach(this::cargarInterprete);
-            System.out.printf("En el catálogo hay %,d intérpretes.%n", interpretes.getLista().size());
+            System.out.printf("En el catálogo hay %,d intérpretes.%n", interpretes.size());
         }
         catch (IOException e) {
             System.out.println("Error en la lectura del archivo:");

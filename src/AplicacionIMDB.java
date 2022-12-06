@@ -9,9 +9,9 @@ public class AplicacionIMDB {
         System.out.println("¡Bienvenid@ a la aplicación de IMDB!");
         catalogo = CatalogoIMDB.getInstance();
         catalogo.cargarPeliculas("films.txt");
-
+        long tiempo = System.currentTimeMillis();
         catalogo.cargarInterpretes("cast.txt");
-
+        System.out.printf("Ha tardado %,d%n", System.currentTimeMillis() - tiempo);
         //Menú
 
         Scanner sc = new Scanner(System.in);

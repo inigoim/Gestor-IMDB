@@ -1,7 +1,6 @@
-import java.util.LinkedList;
-
 public class ABBInterpretes implements InterfazInterpretes{
     private NodoABBInterpretes raiz;
+    private int size;
 
     //métodos básicos
     public ABBInterpretes() {
@@ -22,12 +21,9 @@ public class ABBInterpretes implements InterfazInterpretes{
      * @param inter Intérprete a añadir
      */
     public synchronized void anadirInterprete(Interprete inter){
-        if (esVacio()) {
-            this.raiz = new NodoABBInterpretes(inter);
-        }
-        else{
-            this.raiz.anadirInterprete(inter);
-        }
+        if (esVacio()) this.raiz = new NodoABBInterpretes(inter);
+        else this.raiz.anadirInterprete(inter);
+        size++;
     }
     /**
      * Busca un intérprete en la lista y lo devuelve
@@ -46,29 +42,20 @@ public class ABBInterpretes implements InterfazInterpretes{
      * @return el Interprete (si se ha eliminado), null en caso contrario
      */
     public Interprete eliminarInterprete(String nombre){
-        if(!esVacio()) {
-            Interprete res = raiz.eliminarInterprete(nombre).getInfo();
-            if (res != null) {
-                return res;
-            }
-        }
-            return null;
+        if(esVacio()) return null;
+        Interprete res = raiz.eliminarInterprete(nombre).getInfo();
+        if (res != null) size--;
+        return res;
     }
 
     /**
      * Devuelve el nº de elementos del árbol.
      * @return nº de elementos del árbol
      */
-    public int size(){
-        if (esVacio()) return 0;
-        else return raiz.size();
-    }
+    public int size(){return size;}
 
     public void imprimirABB(){
-        if (esVacio()){
-            System.out.println("EL ARBOL ESTA VACIO");
-        }
-        else
-            raiz.imprimirABB();
+        if (esVacio()) System.out.println("EL ARBOL ESTA VACIO");
+        else raiz.imprimirABB();
     }
 }

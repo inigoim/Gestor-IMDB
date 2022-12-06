@@ -127,20 +127,7 @@ public class NodoABBInterpretes{
             return res;
         }
     }
-
-    /**
-     * Devuelve el nº de elementos del árbol.
-     * @return nº de elementos del árbol
-     */
-    public int size() {
-        int cont = 1;
-        if (tieneIzq())
-            cont += left.size();
-        if (tieneDer())
-            cont += right.size();
-        return cont;
-    }
-
+    
     public void imprimirABB (){
         System.out.println(info.toString());
         if(tieneDer())

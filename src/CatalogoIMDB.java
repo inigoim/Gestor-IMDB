@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 public class CatalogoIMDB {
     private static CatalogoIMDB miCatalogo;
@@ -23,7 +24,7 @@ public class CatalogoIMDB {
      */
     public void cargarPeliculas(String nomF) {
         System.out.println("Cargando películas...");
-        int numPeliculas = 0;
+
         Path pth = Path.of(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
 
@@ -31,21 +32,21 @@ public class CatalogoIMDB {
             Pelicula pel;
             String linea;
             while ((linea = reader.readLine()) != null) {
-                String[] pelDatos = linea.split("\t");
-                pel = new Pelicula(pelDatos[0], Integer.parseInt(pelDatos[1]),
-                        Float.parseFloat(pelDatos[2]), Integer.parseInt(pelDatos[3]));
-                peliculas.anadirPelicula(pel);
-                if (++numPeliculas % 100000 == 0)
-                    System.out.printf("Cargadas %,d películas\r", numPeliculas);
+                try {
+                    String[] pelDatos = linea.split("\t");
+                    pel = new Pelicula(pelDatos[0], Integer.parseInt(pelDatos[1]),
+                            Float.parseFloat(pelDatos[2]), Integer.parseInt(pelDatos[3]));
+                    peliculas.anadirPelicula(pel);
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    System.out.printf("Error de formato en:%n\"%s\"%n", linea);
+                    System.out.println(e.getMessage());
+                }
             }
         } catch (IOException e) {
             System.out.println("Error en la lectura del archivo");
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("Error en el formato del archivo");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        System.out.printf("En el catálogo hay %,d películas.%n", numPeliculas);
+        System.out.printf("En el catálogo hay %,d películas.%n", peliculas.getLista().size());
 
     }
     /**
@@ -57,40 +58,48 @@ public class CatalogoIMDB {
      */
     public void cargarInterpretes(String nomF) {
         System.out.println("Cargando intérpretes...");
-        int numInterpretes = 0;
+
         Path pth = Path.of(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
 
-        try (BufferedReader reader = Files.newBufferedReader(pth, windows1252)) {
-            Interprete inter;
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-
-                String[] interDatos = linea.split("->");
-                inter = new Interprete(interDatos[0]);
-                String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
-                Pelicula pel;
-
-                for (String pelTitulo : pels) {
-                    pel = peliculas.buscarPelicula(pelTitulo);
-                    if (pel != null) {
-                        inter.anadirPelicula(pel);
-                        pel.anadirInterprete(inter);
-                    }
-                }
-                inter.calcularRating();
-                interpretes.anadirInterprete(inter);
-                if (++numInterpretes % 100000 == 0)
-                    System.out.printf("Cargados %,d intérpretes\r", numInterpretes);
-            }
+        try  {
+            Stream<String> lineas = Files.readAllLines(pth, windows1252).parallelStream();
+            lineas.forEach(this::cargarInterprete);
+            System.out.printf("En el catálogo hay %,d intérpretes.%n", interpretes.getLista().size());
         }
         catch (IOException e) {
-            System.out.println("Error en la lectura del archivo");
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("Error en el formato del archivo");
+            System.out.println("Error en la lectura del archivo:");
+            throw new RuntimeException(e);
         }
-        System.out.printf("En el catálogo hay %,d intérpretes.%n", numInterpretes);
+
     }
+
+    /**
+     * Función auxiliar que se usa en cargarInterpretes
+     */
+    private void cargarInterprete(String linea) {
+        try {
+            String[] interDatos = linea.split("->");
+            Interprete inter = new Interprete(interDatos[0]);
+            String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
+            Pelicula pel;
+            for (String pelTitulo : pels) {
+                pel = peliculas.buscarPelicula(pelTitulo);
+                if (pel != null) {
+                    inter.anadirPelicula(pel);
+                    pel.anadirInterprete(inter);
+                }
+            }
+            inter.calcularRating();
+            interpretes.anadirInterprete(inter);
+        }
+        catch (IndexOutOfBoundsException | NumberFormatException e) {
+            System.out.printf("Error de formato en:%n\"%s\"%n", linea);
+            System.out.println(e.getMessage());
+        }
+    }
+
+
     /**
      * Imprime por pantalla el número de intérpretes de una película y sus nombres. Es de orden O(log(n))
      * n="número de películas en el catálogo"

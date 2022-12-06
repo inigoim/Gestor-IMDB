@@ -1,9 +1,9 @@
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class ListaInterpretes implements InterfazInterpretes{
-    private final ArrayList<Interprete> lista = new ArrayList<>();
+    private final Vector<Interprete> lista = new Vector<>();
 
-    public ArrayList<Interprete> getLista() {
+    public Vector<Interprete> getLista() {
         return lista;
     }
 

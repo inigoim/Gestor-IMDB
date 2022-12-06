@@ -46,6 +46,7 @@ public class ABBInterpretes implements InterfazInterpretes{
      * @return el Interprete (si se ha eliminado), null en caso contrario
      */
     public Interprete eliminarInterprete(String nombre){
+        //TODO
         return null;
     }
 

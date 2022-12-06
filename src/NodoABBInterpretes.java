@@ -6,7 +6,6 @@ public class NodoABBInterpretes implements InterfazInterpretes{
 
 
     //métodos básicos
-    public NodoABBInterpretes() {}
     public NodoABBInterpretes(Interprete info) {
         this.info = info;
     }

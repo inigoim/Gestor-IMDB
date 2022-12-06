@@ -21,7 +21,7 @@ public class ABBInterpretes implements InterfazInterpretes{
      * Añade un intérprete a la lista
      * @param inter Intérprete a añadir
      */
-    public void anadirInterprete(Interprete inter){
+    public synchronized void anadirInterprete(Interprete inter){
         if (esVacio()) {
             this.raiz = new NodoABBInterpretes(inter);
         }

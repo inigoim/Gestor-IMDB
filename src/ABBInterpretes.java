@@ -46,8 +46,13 @@ public class ABBInterpretes implements InterfazInterpretes{
      * @return el Interprete (si se ha eliminado), null en caso contrario
      */
     public Interprete eliminarInterprete(String nombre){
-        //TODO
-        return null;
+        if(!esVacio()) {
+            Interprete res = raiz.eliminarInterprete(nombre).getInfo();
+            if (res != null) {
+                return res;
+            }
+        }
+            return null;
     }
 
     /**
@@ -57,5 +62,13 @@ public class ABBInterpretes implements InterfazInterpretes{
     public int size(){
         if (esVacio()) return 0;
         else return raiz.size();
+    }
+
+    public void imprimirABB(){
+        if (esVacio()){
+            System.out.println("EL ARBOL ESTA VACIO");
+        }
+        else
+            raiz.imprimirABB();
     }
 }

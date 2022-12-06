@@ -1,18 +1,16 @@
 import java.util.LinkedList;
 
 public class ABBInterpretes implements InterfazInterpretes{
-    NodoABBInterpretes raiz;
+    private NodoABBInterpretes raiz;
 
     //métodos básicos
     public ABBInterpretes() {
         this.raiz = null;
     }
     public ABBInterpretes(Interprete info) {
-        this.raiz = new NodoABBInterpretes();
+        this.raiz = new NodoABBInterpretes(info);
     }
-    public ABBInterpretes(NodoABBInterpretes raiz) {
-        this.raiz = raiz;
-    }
+
     public boolean esVacio() {
         return (raiz == null);
     }

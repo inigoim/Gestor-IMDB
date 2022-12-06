@@ -30,8 +30,14 @@ public class Pelicula {
      * @param voto Voto entre 0.0 y 10.0
      */
     public void anadirVoto(float voto) {
-        setRating((getRating() * getNumvotos() + voto) / (getNumvotos() + 1));
-        setNumvotos(getNumvotos() + 1);
+        if (getNumvotos() == -1){
+            setNumvotos(1);
+            rating = voto;
+        }
+        else {
+            setRating((getRating() * getNumvotos() + voto) / (getNumvotos() + 1));
+            setNumvotos(getNumvotos() + 1);
+        }
         for (Interprete i : reparto.getLista()) {
             i.calcularRating();
         }

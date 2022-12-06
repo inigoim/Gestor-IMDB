@@ -1,10 +1,8 @@
-import java.util.LinkedList;
-
 public class NodoABBInterpretes implements InterfazInterpretes{
 
     private Interprete info;
-    private NodoABBInterpretes izq;
-    private NodoABBInterpretes der;
+    private NodoABBInterpretes left;
+    private NodoABBInterpretes right;
 
 
     //métodos básicos
@@ -14,15 +12,15 @@ public class NodoABBInterpretes implements InterfazInterpretes{
     }
     // Devuelve si el nodo es hoja
     private boolean esHoja() {
-        return (izq == null && der == null);
+        return (left == null && right == null);
     }
     // Devuelve si el nodo tiene subárbol izquierdo
     private boolean tieneIzq() {
-        return (izq != null);
+        return (left != null);
     }
     // Devuelve si el nodo tiene subárbol derecho
     private boolean tieneDer() {
-        return (der != null);
+        return (right != null);
     }
     private Interprete getInfo() {return info;}
 
@@ -33,11 +31,11 @@ public class NodoABBInterpretes implements InterfazInterpretes{
      */
     public void anadirInterprete(Interprete inter){
         if (inter.getNombre().compareTo(this.getInfo().getNombre())<0) {
-            if (tieneIzq()) izq.anadirInterprete(inter);
-            else izq = new NodoABBInterpretes(inter);
+            if (tieneIzq()) left.anadirInterprete(inter);
+            else left = new NodoABBInterpretes(inter);
         }else {
-            if (tieneDer()) der.anadirInterprete(inter);
-            else{ this.der = new NodoABBInterpretes(inter);};
+            if (tieneDer()) right.anadirInterprete(inter);
+            else{ this.right = new NodoABBInterpretes(inter);}
         }
     }
     /**
@@ -50,13 +48,13 @@ public class NodoABBInterpretes implements InterfazInterpretes{
             return getInfo();
         else if(nombre.compareTo(getInfo().getNombre())<0){
             if(tieneIzq()){
-                return izq.buscarInterprete(nombre);
+                return left.buscarInterprete(nombre);
             }
             else return null;
         }
         else {
             if(tieneDer()){
-                return der.buscarInterprete(nombre);
+                return right.buscarInterprete(nombre);
             }
             else return null;
         }
@@ -79,9 +77,9 @@ public class NodoABBInterpretes implements InterfazInterpretes{
         int cont = 0;
         cont ++;
         if (tieneIzq())
-            cont += izq.size();
+            cont += left.size();
         if (tieneDer())
-            cont += der.size();
+            cont += right.size();
         return cont;
     }
 }

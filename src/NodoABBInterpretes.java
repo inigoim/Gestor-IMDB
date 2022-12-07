@@ -23,12 +23,6 @@ public class NodoABBInterpretes{
     }
     public Interprete getInfo() {return info;}
 
-    static class Aux {
-        private Interprete info;
-        private NodoABBInterpretes nodo;
-        public Interprete getInfo(){return info;}
-        public NodoABBInterpretes getNodo() {return nodo;}
-    }
 
     /**
      * Añade un intérprete a la lista
@@ -65,7 +59,15 @@ public class NodoABBInterpretes{
         }
     }
 
-    private Aux eliminarMin(){
+    static class Aux {
+        private Interprete info;
+        private NodoABBInterpretes nodo;
+        public Interprete getInfo(){return info;}
+        public NodoABBInterpretes getNodo() {return nodo;}
+    }
+
+    private Aux eliminarMin(){ //TODO: Mejorar esta implementación
+        // Crear una instancia de Aux en cada iteración es ineficiente.
         Aux res = new Aux();
         if(!this.tieneIzq()){
             res.info = this.info;
@@ -86,7 +88,8 @@ public class NodoABBInterpretes{
      * @param nombre Nombre del intérprete a eliminar
      * @return el Interprete (si se ha eliminado), null en caso contrario
      */
-    public Aux eliminarInterprete(String nombre){
+    public Aux eliminarInterprete(String nombre){ //TODO: Mejorar esta implementación
+        // Crear una instancia de Aux en cada iteración es ineficiente.
         int comp = nombre.compareToIgnoreCase(info.getNombre());
         Aux res = new Aux();
         if(comp == 0)

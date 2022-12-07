@@ -59,31 +59,24 @@ public class NodoABBInterpretes{
         }
     }
 
-    static class Aux {
-        private Interprete info;
-        private NodoABBInterpretes nodo;
-        public Interprete getInfo(){return info;}
-        public NodoABBInterpretes getNodo() {return nodo;}
-    }
+    // Variables usadas por eliminarMin y eliminarInterprete
+    private static Interprete infoAux1;
+    private static Interprete infoAux2;
+    private static NodoABBInterpretes nodoAux;
 
     /**
      * Elimina el mínimo del subárbol. Coste O(n). n="altura del árbol".
-     * @return Objeto con el nodo y el intérprete eliminados.
      */
-    private Aux eliminarMin(){ //TODO: Mejorar esta implementación
-        // Crear una instancia de Aux en cada iteración es ineficiente.
-        Aux res = new Aux();
-        if(!this.tieneIzq()){
-            res.info = this.info;
-            res.nodo = this.right;
+    private void eliminarMin(){
+        if(tieneIzq()){
+            left.eliminarMin();
+            left = nodoAux;
+            nodoAux = this;
         }
         else{
-            Aux resIzq = this.left.eliminarMin();
-            this.left = resIzq.nodo;
-            res.info = resIzq.getInfo();
-            res.nodo = this;
+            infoAux1 = info;
+            nodoAux = right;
         }
-    return res;
     }
 
     /**
@@ -91,47 +84,36 @@ public class NodoABBInterpretes{
      * @param nombre Nombre del intérprete a eliminar
      * @return Objeto con el intérprete (si se ha eliminado), y el nodo eliminado.
      */
-    public Aux eliminarInterprete(String nombre){ //TODO: Mejorar esta implementación
-        // Crear una instancia de Aux en cada iteración es ineficiente.
+    public Interprete eliminarInterprete(String nombre){
         int comp = nombre.compareToIgnoreCase(info.getNombre());
-        Aux res = new Aux();
-        if(comp == 0)
-        {
-            res.info = info;
-            if(!tieneIzq()){
-                res.nodo = right;
-                return res;
+        infoAux2 = null;
+
+        if(comp < 0) {
+            if (tieneIzq()) {
+                left.eliminarInterprete(nombre);
+                left = nodoAux;
             }
-            else if(!tieneDer()){
-                res.nodo = left;
-                return res;
+            nodoAux = this;
             }
-            else{
-                Aux min = right.eliminarMin();
-                right = min.getNodo();
-                info = min.getInfo();
-                res.nodo = this;
-                return res;
-            }
-        }
-        else if(comp<0)
-        {
-            if (tieneIzq()){
-                res = left.eliminarInterprete(nombre);
-                left = res.getNodo();
-            }
-            res.nodo = this;
-            return res;
-        }
-        else
-        {
+        else if (comp > 0) {
             if(tieneDer()){
-                res = right.eliminarInterprete(nombre);
-                right = res.getNodo();
+                right.eliminarInterprete(nombre);
+                right = nodoAux;
             }
-            res.nodo = this;
-            return res;
+            nodoAux = this;
         }
+        else { // comp == 0
+            infoAux2 = info;
+            if(!tieneIzq()) nodoAux = right;
+            else if(!tieneDer())nodoAux = left;
+            else{
+                right.eliminarMin();
+                right = nodoAux;
+                info = infoAux1;
+                nodoAux = this;
+            }
+        }
+        return infoAux2;
     }
     
     public void imprimirABB (){

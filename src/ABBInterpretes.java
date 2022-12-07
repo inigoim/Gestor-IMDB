@@ -43,7 +43,7 @@ public class ABBInterpretes implements InterfazInterpretes{
      */
     public Interprete eliminarInterprete(String nombre){
         if(esVacio()) return null;
-        Interprete res = raiz.eliminarInterprete(nombre).getInfo();
+        Interprete res = raiz.eliminarInterprete(nombre);
         if (res != null) size--;
         return res;
     }

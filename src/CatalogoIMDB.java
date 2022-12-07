@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class CatalogoIMDB {
     private static CatalogoIMDB miCatalogo;
     ListaPeliculas peliculas = new ListaPeliculas();
-     InterfazInterpretes interpretes = new ABBInterpretes();
+     InterfazInterpretes interpretes;
 
 
     private CatalogoIMDB() {}
@@ -166,6 +166,6 @@ public class CatalogoIMDB {
      * @param interpretes: conjunto de intérpretes
      */
     public void setInterpretes(InterfazInterpretes interpretes){
-        //TODO
+        this.interpretes = interpretes;
     }
 }

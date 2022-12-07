@@ -24,6 +24,8 @@ public class AplicacionIMDB {
             System.out.println("1. Mostrar información de película");
             System.out.println("2. Mostrar información de intérprete");
             System.out.println("3. Añadir voto a película");
+            System.out.println("4. Elimina una pelicula");
+
 
             System.out.println("0. Salir");
 
@@ -58,6 +60,15 @@ public class AplicacionIMDB {
                         else
                             System.out.println("La película introducida no está en la base de datos.");
 
+                        break;
+
+                    case 4:
+                        System.out.println("Introduce el nombre de la pelicula que deseas eliminar");
+                        tituloPelicula = sc.nextLine();
+                        if(catalogo.eliminarPelicula(tituloPelicula) == null){
+                            System.out.println("La pelicula no esta en el catalogo");
+                        }
+                        System.out.println("La pelicula ha sido eliminada del catalogo");
                         break;
 
                     default:

@@ -51,6 +51,21 @@ public class ListaPeliculas {
     }
 
     /**
+     * Elimina de la lista la película pasada como parámetro. Orden O(n), con n="número de películas en la lista"
+     * @param titulo: título de la película a eliminar
+     * @return true si se ha eliminado, false en caso contrario
+     */
+    public Pelicula eliminarPelicula(String titulo) {
+        ArrayList<Pelicula> peliculas = getLista();
+        for (int i=0; i < peliculas.size(); i++) {
+            if (titulo.equalsIgnoreCase(peliculas.get(i).getTitulo())) {
+                return peliculas.remove(i);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Siguiendo el formato del fichero cast.txt,
      * override del método toString para imprimir las películas de lista.
      * Es de orden O(n), con n="número de películas en la lista"

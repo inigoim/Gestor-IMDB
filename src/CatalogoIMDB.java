@@ -150,13 +150,15 @@ public class CatalogoIMDB {
      * @return Película eliminada.
      */
     public Pelicula eliminarPelicula(String titulo){
-        //TODO
-        Pelicula peli = peliculas.buscarPelicula(titulo);
-        if (peli == null){
-            return null;
+        Pelicula peliculaEliminada = peliculas.eliminarPelicula(titulo);
+        if (peliculaEliminada == null) return null;
+
+        for (Interprete inter: peliculaEliminada.getReparto().getLista()) {
+            inter.eliminarPelicula(peliculaEliminada);
+            if (inter.getNumPeliculas() == 0)
+                interpretes.eliminarInterprete(inter);
         }
-        peliculas.eliminarPelicula(peli);
-        return peli;
+        return peliculaEliminada;
     }
 
 

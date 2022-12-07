@@ -73,4 +73,13 @@ public class Interprete {
             str.append(pel.getTitulo()).append(System.lineSeparator());
         return str.toString();
     }
+
+    /**
+     * Elimina una pelicular de la lista de películas del intérprete.
+     * @param pel la película a eliminar
+     * @return true si el autor participaba en la película
+     */
+    public boolean eliminarPelicula(Pelicula pel) {
+        return getFilmografia().eliminarPelicula(pel);
+    }
 }

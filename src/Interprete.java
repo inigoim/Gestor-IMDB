@@ -80,6 +80,8 @@ public class Interprete {
      * @return true si el autor participaba en la película
      */
     public boolean eliminarPelicula(Pelicula pel) {
-        return getFilmografia().eliminarPelicula(pel);
+        boolean eliminada = getFilmografia().eliminarPelicula(pel);
+        if (eliminada) calcularRating();
+        return eliminada;
     }
 }

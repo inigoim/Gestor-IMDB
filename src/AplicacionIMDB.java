@@ -65,11 +65,10 @@ public class AplicacionIMDB {
                     case 4:
                         System.out.println("Introduce el nombre de la pelicula que deseas eliminar");
                         tituloPelicula = sc.nextLine();
-                        if(catalogo.eliminarPelicula(tituloPelicula)==null){
+                        if(catalogo.eliminarPelicula(tituloPelicula) == null){
                             System.out.println("La pelicula no esta en el catalogo");
-                            break;
                         }
-                        catalogo.eliminarPelicula(tituloPelicula);
+                        System.out.println("La pelicula ha sido eliminada del catalogo");
                         break;
 
                     default:

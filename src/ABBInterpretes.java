@@ -17,7 +17,7 @@ public class ABBInterpretes implements InterfazInterpretes{
 
 
     /**
-     * Añade un intérprete a la lista
+     * Añade un intérprete a la lista. Orden O(n). n="altura del árbol"
      * @param inter Intérprete a añadir
      */
     public synchronized void anadirInterprete(Interprete inter){
@@ -26,7 +26,7 @@ public class ABBInterpretes implements InterfazInterpretes{
         size++;
     }
     /**
-     * Busca un intérprete en la lista y lo devuelve
+     * Busca un intérprete en la lista y lo devuelve. Orden O(n). n="altura del árbol"
      * @param nombre Nombre del intérprete a buscar
      * @return el intérprete (si está en la lista), null en caso contrario
      */
@@ -49,7 +49,7 @@ public class ABBInterpretes implements InterfazInterpretes{
     }
 
     /**
-     * Devuelve el nº de elementos del árbol.
+     * Devuelve el nº de elementos del árbol. Coste O(1).
      * @return nº de elementos del árbol
      */
     public int size(){return size;}

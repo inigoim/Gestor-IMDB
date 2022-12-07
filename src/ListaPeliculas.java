@@ -42,7 +42,7 @@ public class ListaPeliculas {
     }
 
     /**
-     * Elimina de la lista la película pasada como parámetro.
+     * Elimina de la lista la película pasada como parámetro. Orden O(n), con n="número de películas en la lista"
      * @param pel: película a eliminar
      * @return true si se ha eliminado, false en caso contrario
      */

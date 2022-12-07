@@ -25,7 +25,7 @@ public class NodoABBInterpretes{
 
 
     /**
-     * Añade un intérprete a la lista
+     * Añade un intérprete a la lista. Orden O(log(n)). n="altura del árbol"
      * @param inter Intérprete a añadir
      */
     public void anadirInterprete(Interprete inter){
@@ -38,7 +38,7 @@ public class NodoABBInterpretes{
         }
     }
     /**
-     * Busca un intérprete en la lista y lo devuelve
+     * Busca un intérprete en la lista y lo devuelve. Orden O(n). n="altura del árbol".
      * @param nombre Nombre del intérprete a buscar
      * @return el intérprete (si está en la lista), null en caso contrario
      */
@@ -66,6 +66,10 @@ public class NodoABBInterpretes{
         public NodoABBInterpretes getNodo() {return nodo;}
     }
 
+    /**
+     * Elimina el mínimo del subárbol. Coste O(n). n="altura del árbol".
+     * @return Objeto con el nodo y el intérprete eliminados.
+     */
     private Aux eliminarMin(){ //TODO: Mejorar esta implementación
         // Crear una instancia de Aux en cada iteración es ineficiente.
         Aux res = new Aux();
@@ -83,10 +87,9 @@ public class NodoABBInterpretes{
     }
 
     /**
-     * Elimina un intérprete del árbol (puede seguir estando en las listas de
-     * intérpretes de las películas)
+     * Elimina un intérprete del subárbol. Coste O(n). n="altura del árbol".
      * @param nombre Nombre del intérprete a eliminar
-     * @return el Interprete (si se ha eliminado), null en caso contrario
+     * @return Objeto con el intérprete (si se ha eliminado), y el nodo eliminado.
      */
     public Aux eliminarInterprete(String nombre){ //TODO: Mejorar esta implementación
         // Crear una instancia de Aux en cada iteración es ineficiente.

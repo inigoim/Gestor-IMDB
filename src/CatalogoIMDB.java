@@ -139,4 +139,32 @@ public class CatalogoIMDB {
         if (pelicula != null)
             pelicula.anadirVoto(voto);
     }
+
+    /**
+     * Elimina del catálogo la película cuyo título se pasa como parámetro.
+     * Además, elimina la película de la lista de películas de cada uno de los
+     * intérpretes de dicha película.
+     * Aquellos intérpretes que se quedan sin películas son eliminados del
+     * catálogo, y al resto se les actualiza el rating.
+     * @param titulo: Nombre de la película a eliminar.
+     * @return Película eliminada.
+     */
+    public Pelicula eliminarPelicula(String titulo){
+        Pelicula peli = peliculas.buscarPelicula(titulo);
+        if (peli == null){
+            return null;
+        }
+        peliculas.eliminarPelicula(peli);
+        return peli;
+    }
+
+
+    /**
+     * Inicializa el conjunto de intérpretes del catálogo con el conjunto de
+     * intérpretes que se le pasa como parámetro
+     * @param interpretes: conjunto de intérpretes
+     */
+    public void setInterpretes(InterfazInterpretes interpretes){
+
+    }
 }

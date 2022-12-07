@@ -42,6 +42,15 @@ public class ListaPeliculas {
     }
 
     /**
+     * Elimina de la lista la película pasada como parámetro.
+     * @param pel: película a eliminar
+     * @return true si se ha eliminado, false en caso contrario
+     */
+    public boolean eliminarPelicula(Pelicula pel){
+        return lista.remove(pel);
+    }
+
+    /**
      * Siguiendo el formato del fichero cast.txt,
      * override del método toString para imprimir las películas de lista.
      * Es de orden O(n), con n="número de películas en la lista"

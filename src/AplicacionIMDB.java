@@ -36,14 +36,16 @@ public class AplicacionIMDB {
 
 
                     case 1:
-                        System.out.println("Introduce el nombre de una película: ");
+                        System.out.println("Introduce el nombre de una película:");
                         String tituloPelicula = sc.nextLine();
+                        System.out.println();
                         catalogo.imprimirInfoPelicula(tituloPelicula);
                         break;
 
                     case 2:
-                        System.out.println("Introduce el nombre de un interprete: ");
+                        System.out.println("Introduce el nombre de un interprete:");
                         String nombreInterprete = sc.nextLine();
+                        System.out.println();
                         catalogo.imprimirInfoInterprete(nombreInterprete);
                         break;
 
@@ -52,23 +54,27 @@ public class AplicacionIMDB {
                         tituloPelicula = sc.nextLine();
                         System.out.println("Introduzca una puntuación entre 0.0 y 10.0");
                         float puntuacion = Float.parseFloat(sc.nextLine());
+                        System.out.println();
                         Pelicula pel = catalogo.peliculas.buscarPelicula(tituloPelicula);
-                        if (pel!= null) {
-                            pel.anadirVoto(puntuacion);
-                            System.out.printf("El nuevo rating de la película es: %f%n", pel.getRating());
+                        if (pel == null) {
+                            System.out.printf("La película %s no se encuentra en el catálogo.%n%n", tituloPelicula);
                         }
-                        else
-                            System.out.println("La película introducida no está en la base de datos.");
+                        else {
+                            pel.anadirVoto(puntuacion);
+                            System.out.printf("El nuevo rating de la película es: %f%n%n", pel.getRating());
+                        }
 
                         break;
 
                     case 4:
-                        System.out.println("Introduce el nombre de la película que deseas eliminar:");
+                        System.out.println("Introduzca el título de una película:");
                         tituloPelicula = sc.nextLine();
+                        System.out.println();
                         if(catalogo.eliminarPelicula(tituloPelicula) == null)
-                            System.out.println("La película no está en el catálogo.");
+                            System.out.printf("La película %s no se encuentra en el catálogo.%n%n", tituloPelicula);
                         else
-                            System.out.println("La película ha sido eliminada del catálogo.");
+                            System.out.printf("Se ha eliminado la película %s. En el catálogo quedan %,d películas y %,d" +
+                                    " intérpretes.%n%n", tituloPelicula, catalogo.numPeliculas(), catalogo.numInterpretes());
                         break;
 
                     default:

@@ -67,7 +67,7 @@ public class Interprete {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(String.format("Nombre: %s%n", getNombre()));
-        str.append(String.format("Rating: %f%n",getRating()));
+        str.append(String.format("Rating: %.1f%n",getRating()));
         str.append(String.format("Total de películas del intérprete: %d%n", getNumPeliculas()));
         for (Pelicula pel: getFilmografia().getLista()) 
             str.append(pel.getTitulo()).append(System.lineSeparator());

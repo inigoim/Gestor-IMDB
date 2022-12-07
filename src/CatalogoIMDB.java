@@ -8,13 +8,21 @@ import java.util.stream.Stream;
 public class CatalogoIMDB {
     private static CatalogoIMDB miCatalogo;
     ListaPeliculas peliculas = new ListaPeliculas();
-     InterfazInterpretes interpretes;
+    InterfazInterpretes interpretes;
 
 
     private CatalogoIMDB() {}
     public static CatalogoIMDB getInstance() {
         if (miCatalogo == null) miCatalogo = new CatalogoIMDB();
         return miCatalogo;
+    }
+
+    public int numPeliculas() {
+        return peliculas.getLista().size();
+    }
+
+    public int numInterpretes() {
+        return interpretes.size();
     }
 
     /**
@@ -111,7 +119,7 @@ public class CatalogoIMDB {
         if (pel != null)
             System.out.println(pel);
         else
-            System.out.println("Película no encontrada en la base de datos.");
+            System.out.printf("La película %s no se encuentra en el catálogo.%n%n", titulo);
     }
     /**
      * Imprime por pantalla el nombre del intérprete, su rating y los títulos
@@ -124,7 +132,7 @@ public class CatalogoIMDB {
         if (inter != null)
             System.out.println(inter);
         else
-            System.out.println("Intérprete no encontrado en la base de datos.");
+            System.out.printf("El intérprete %s no está en el catálogo.%n%n", nombre);
     }
     /**
      * Añade un nuevo voto a una película

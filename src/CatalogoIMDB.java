@@ -150,6 +150,7 @@ public class CatalogoIMDB {
      * @return Película eliminada.
      */
     public Pelicula eliminarPelicula(String titulo){
+        //TODO
         Pelicula peli = peliculas.buscarPelicula(titulo);
         if (peli == null){
             return null;
@@ -165,6 +166,6 @@ public class CatalogoIMDB {
      * @param interpretes: conjunto de intérpretes
      */
     public void setInterpretes(InterfazInterpretes interpretes){
-
+        //TODO
     }
 }

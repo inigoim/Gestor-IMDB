@@ -29,8 +29,8 @@ public class ListaInterpretes implements InterfazInterpretes{
     }
 
     /**
-     * Elimina un intérprete del árbol (puede seguir estando en las listas de
-     * intérpretes de las películas)
+     * Elimina un intérprete de la lista de
+     * intérpretes
      * @param nombre Nombre del intérprete a eliminar
      * @return el Interprete (si se ha eliminado), null en caso contrario
      */
@@ -41,8 +41,8 @@ public class ListaInterpretes implements InterfazInterpretes{
     }
 
     /**
-     * Devuelve el nº de elementos del árbol.
-     * @return nº de elementos del árbol
+     * Devuelve el nº de intérpretes de la lista.
+     * @return nº de intérpretes de la lista de interpretes.
      */
     public int size(){return lista.size();}
 

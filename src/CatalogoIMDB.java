@@ -3,6 +3,10 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.stream.Stream;
 
 public class CatalogoIMDB {
@@ -177,5 +181,24 @@ public class CatalogoIMDB {
      */
     public void setInterpretes(InterfazInterpretes interpretes){
         this.interpretes = interpretes;
+    }
+
+    /**
+     * Devuelve la distancia mínima entre dos intérpretes dados.
+     * @param inter1: nombre del primer intérprete
+     * @param inter2: nombre del segundo intérprete
+     * @return: distancia mínima entre ambos intérpretes. En caso de que no
+     * estén conectados, devuelve -1.
+     */
+    public int distancia(String inter1, String inter2){
+        //TODO
+        Interprete iorigen = interpretes.buscarInterprete(inter1);
+        Interprete idestino = interpretes.buscarInterprete(inter2);
+
+        HashSet<Interprete> hsVisitados = new HashSet<>();
+        Queue<Interprete> cola = new LinkedList<Interprete>();
+
+        return 0;
+
     }
 }

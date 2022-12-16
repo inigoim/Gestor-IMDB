@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 public class Interprete {
     private String nombre;
     private float rating;
@@ -83,5 +85,20 @@ public class Interprete {
         boolean eliminada = getFilmografia().eliminarPelicula(pel);
         if (eliminada) calcularRating();
         return eliminada;
+    }
+
+    /**
+     * Devuelve un HashSet con todos los adyacentes del intérprete, es decir,
+     * aquellos intérpretes con los que ha participado en alguna película.
+     * @return: el HashSet con los intérpretes que son adyacentes.
+     */
+    public HashSet<Interprete> obtenerAdyacentes() {
+       HashSet<Interprete> hsAdyacentes = new HashSet<>();
+       for (Pelicula pel:filmografia.getLista()) {
+            for (Interprete inter:pel.getReparto().getLista()){
+                if(!inter.equals(this)) hsAdyacentes.add(inter);
+            }
+       }
+       return hsAdyacentes;
     }
 }

@@ -190,11 +190,14 @@ public class CatalogoIMDB {
      * estén conectados, devuelve -1.
      */
     public int distancia(String inter1, String inter2){
+        //TODO (PENDIENTE DE REVISIÓN)
+       /*
         Interprete iorigen = interpretes.buscarInterprete(inter1);
         Interprete idestino = interpretes.buscarInterprete(inter2);
 
         HashMap<Interprete, Integer> hmVisitados = new HashMap<>();
         Queue<Interprete> cola = new LinkedList<>();
+
         cola.add(iorigen);
         hmVisitados.put(iorigen,0);
         boolean ecnontrado = false;
@@ -214,5 +217,63 @@ public class CatalogoIMDB {
         }
         if(ecnontrado) return hmVisitados.get(idestino);
         return -1;
+        */
+        LinkedList<Interprete> camino = obtenerCamino(inter1,inter2);
+        return camino.size();
     }
+
+
+    /**
+     * Imprime el camino más corto entre dos intérpretes. Si no existe camino,
+     * imprime un mensaje indicando este hecho.
+     * @param inter1: nombre del primer intérprete
+     * @param inter2: nombre del segundo intérprete
+     */
+    public void imprimirCamino(String inter1, String inter2) {
+        LinkedList<Interprete> camino = obtenerCamino(inter1,inter2);
+        for (Interprete inter : camino)
+            imprimirInfoInterprete(inter.getNombre());
+    }
+
+
+
+    //clase auxiliar de imprimir camino,
+    // que guarda un Linkedlist con el camino más corto hasta el nodo destino.
+    public LinkedList<Interprete> obtenerCamino(String inter1, String inter2){
+        //Obtenemos los interpretes para poder usar buscarAdyacentes
+        Interprete iorigen = interpretes.buscarInterprete(inter1);
+        Interprete idestino = interpretes.buscarInterprete(inter2);
+
+        LinkedList<Interprete> resultado = new LinkedList<>();
+        HashMap<Interprete,Interprete> visitados = new HashMap<>();
+        Queue<Interprete> cola = new LinkedList<>();
+
+        cola.add(iorigen);
+        visitados.put(iorigen,null);
+
+        boolean encontrado = false;
+        while(!cola.isEmpty() && !encontrado){
+           Interprete interActual = cola.remove();
+           encontrado = interActual.equals(idestino);
+            if(!encontrado){
+                for (Interprete aux : interActual.obtenerAdyacentes()){
+                    if(!visitados.containsKey(aux)){
+                        cola.add(aux);
+                        visitados.put(aux,interActual);
+                    }
+                }
+            }
+        }
+
+        if (encontrado){
+            Interprete actual = idestino;
+            while(actual != null){
+                resultado.addFirst(actual);
+                actual = visitados.get(actual);
+            }
+        }
+        return resultado;
+    }
+
+
 }

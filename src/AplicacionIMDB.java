@@ -79,11 +79,12 @@ public class AplicacionIMDB {
                         break;
                     case 5:
                         System.out.println("Introduce el nombre del interprete origen: ");
-                            String iOrigen = sc.nextLine();
+                        String iOrigen = sc.nextLine();
                         System.out.println("Introduce el nombre del intérprete destino");
-                            String iDestino = sc.nextLine();
+                        String iDestino = sc.nextLine();
                         int distancia = catalogo.distancia(iOrigen,iDestino);
-                        System.out.printf("La distancia entre %s y %s es de %,d unidades de distancia", iOrigen, iDestino, distancia);
+                        if (distancia == -1) System.out.println("Los intérpretes introducidos no están conectados.");
+                        else System.out.printf("La distancia entre %s y %s es de %,d unidades de distancia.%n%n", iOrigen, iDestino, distancia);
                         break;
                     default:
                         break;

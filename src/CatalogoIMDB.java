@@ -210,12 +210,8 @@ public class CatalogoIMDB {
 
 
 
-    /*
-    clase auxiliar de imprimir camino,
-    que guarda un Linkedlist con el camino más corto hasta el nodo destino.
-    */
-    //TODO probar si el recorrido en profundidad es más rápido
-    //TODO tratar cuando el interprete no existe
+    //clase auxiliar de imprimir camino,
+    // que guarda un Linkedlist con el camino más corto hasta el nodo destino.
     public LinkedList<Interprete> obtenerCamino(String inter1, String inter2){
 
         LinkedList<Interprete> resultado = new LinkedList<>();

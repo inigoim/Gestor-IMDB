@@ -25,6 +25,7 @@ public class AplicacionIMDB {
             System.out.println("2. Mostrar información de intérprete");
             System.out.println("3. Añadir voto a película");
             System.out.println("4. Elimina una película");
+            System.out.println("5. Calcular distancia entre dos intérpretes");
 
 
             System.out.println("0. Salir");
@@ -76,7 +77,14 @@ public class AplicacionIMDB {
                             System.out.printf("Se ha eliminado la película %s. En el catálogo quedan %,d películas y %,d" +
                                     " intérpretes.%n%n", tituloPelicula, catalogo.numPeliculas(), catalogo.numInterpretes());
                         break;
-
+                    case 5:
+                        System.out.println("Introduce el nombre del interprete origen: ");
+                            String iOrigen = sc.nextLine();
+                        System.out.println("Introduce el nombre del intérprete destino");
+                            String iDestino = sc.nextLine();
+                        int distancia = catalogo.distancia(iOrigen,iDestino);
+                        System.out.printf("La distancia entre %s y %s es de %,d unidades de distancia", iOrigen, iDestino, distancia);
+                        break;
                     default:
                         break;
                 }

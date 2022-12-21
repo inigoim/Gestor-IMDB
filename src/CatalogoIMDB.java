@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.stream.Stream;
@@ -190,36 +191,9 @@ public class CatalogoIMDB {
      * estén conectados, devuelve -1.
      */
     public int distancia(String inter1, String inter2){
-        //TODO (PENDIENTE DE REVISIÓN)
-       /*
-        Interprete iorigen = interpretes.buscarInterprete(inter1);
-        Interprete idestino = interpretes.buscarInterprete(inter2);
-
-        HashMap<Interprete, Integer> hmVisitados = new HashMap<>();
-        Queue<Interprete> cola = new LinkedList<>();
-
-        cola.add(iorigen);
-        hmVisitados.put(iorigen,0);
-        boolean ecnontrado = false;
-
-        while (!cola.isEmpty() && !ecnontrado){
-            Interprete inter = cola.remove();
-            if (inter.getNombre().equals(idestino.getNombre()))
-                ecnontrado = true;
-            else {
-                for (Interprete aux: inter.obtenerAdyacentes()){
-                    if(!hmVisitados.containsKey(aux)){
-                        cola.add(aux);
-                        hmVisitados.put(aux, hmVisitados.get(inter)+1);
-                    }
-                }
-            }
-        }
-        if(ecnontrado) return hmVisitados.get(idestino);
-        return -1;
-        */
         LinkedList<Interprete> camino = obtenerCamino(inter1,inter2);
-        return camino.size();
+        int distancia = -1;
+        return distancia + camino.size();
     }
 
 

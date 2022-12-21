@@ -4,7 +4,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.stream.Stream;
@@ -211,25 +210,32 @@ public class CatalogoIMDB {
 
 
 
-    //clase auxiliar de imprimir camino,
-    // que guarda un Linkedlist con el camino más corto hasta el nodo destino.
+    /*
+    clase auxiliar de imprimir camino,
+    que guarda un Linkedlist con el camino más corto hasta el nodo destino.
+    */
+    //TODO probar si el recorrido en profundidad es más rápido
+    //TODO tratar cuando el interprete no existe
     public LinkedList<Interprete> obtenerCamino(String inter1, String inter2){
         //Obtenemos los interpretes para poder usar buscarAdyacentes
-        Interprete iorigen = interpretes.buscarInterprete(inter1);
-        Interprete idestino = interpretes.buscarInterprete(inter2);
-
         LinkedList<Interprete> resultado = new LinkedList<>();
         HashMap<Interprete,Interprete> visitados = new HashMap<>();
         Queue<Interprete> cola = new LinkedList<>();
 
+        Interprete iorigen = interpretes.buscarInterprete(inter1);
+        Interprete idestino = interpretes.buscarInterprete(inter2);
+
+
+        if (iorigen==null || idestino==null) return resultado;
+
+
         cola.add(iorigen);
         visitados.put(iorigen,null);
-
         boolean encontrado = false;
         while(!cola.isEmpty() && !encontrado){
-           Interprete interActual = cola.remove();
-           encontrado = interActual.equals(idestino);
-            if(!encontrado){
+            Interprete interActual = cola.remove();
+            if( interActual.equals(idestino)){encontrado = true;}
+            else {
                 for (Interprete aux : interActual.obtenerAdyacentes()){
                     if(!visitados.containsKey(aux)){
                         cola.add(aux);

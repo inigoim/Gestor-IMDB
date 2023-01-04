@@ -21,7 +21,14 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+.idea/
+*.iml
 
-.idea/workspace.xml
-.idea/usage.statistics.xml
-shelf
+#Cosas de Eclipse
+.classpath
+.project
+*.userlibraries
+
+#Datos
+cast.txt
+films.txt

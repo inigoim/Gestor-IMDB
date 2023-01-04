@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 public class HashMapInterpretes implements InterfazInterpretes {
-    private HashMap<String,Interprete> hmInterpretes = new HashMap<>();
+    private final HashMap<String,Interprete> hmInterpretes = new HashMap<>();
 
 
     /*

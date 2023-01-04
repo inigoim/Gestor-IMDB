@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -35,8 +36,7 @@ public class CatalogoIMDB {
      */
     public void cargarPeliculas(String nomF) {
         System.out.println("Cargando películas...");
-
-        Path pth = Path.of(nomF);
+        Path pth = Paths.get(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
 
         try (BufferedReader reader = Files.newBufferedReader(pth, windows1252)) {
@@ -70,7 +70,7 @@ public class CatalogoIMDB {
     public void cargarInterpretes(String nomF) {
         System.out.println("Cargando intérpretes...");
 
-        Path pth = Path.of(nomF);
+        Path pth = Paths.get(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
 
         try  {

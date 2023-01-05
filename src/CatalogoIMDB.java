@@ -201,7 +201,8 @@ public class CatalogoIMDB {
     /**
      * Imprime el camino más corto entre dos intérpretes. Si no existe camino,
      * imprime un mensaje indicando este hecho.
-     * Es de orden O(n * m), con n="número de interpretes en el catálogo", m="Número de películas en el catálogo"
+     * Es de orden O(n * m), con n="número de interpretes en el catálogo",
+     * m="media de películas en las que participa cada intérprete"
      * @param inter1: nombre del primer intérprete
      * @param inter2: nombre del segundo intérprete
      */
@@ -218,54 +219,13 @@ public class CatalogoIMDB {
      * Es de orden O(n * m), con n="número de interpretes en el catálogo", m="Número de películas en el catálogo"
      * @return Linkedlist con el camino más corto hasta el nodo destino
      */
-
-    public LinkedList<Interprete> obtenerCamino(String inter1, String inter2){
-
-        LinkedList<Interprete> resultado = new LinkedList<>();
-        HashMap<Interprete,Interprete> visitados = new HashMap<>();
-        Queue<Interprete> cola = new LinkedList<>();
-
-        // Obtenemos los intérpretes para poder usar buscarAdyacentes en caso de que existan
-        // Si la implementación de InterfazInterpretes deja de ser una basada en HashMap, esto será bastante ineficiente
-        Interprete iorigen = interpretes.buscarInterprete(inter1);
-        Interprete idestino = interpretes.buscarInterprete(inter2);
-        if (iorigen==null || idestino==null) return resultado;
-
-
-        cola.add(iorigen);
-        visitados.put(iorigen,null);
-        boolean encontrado = false;
-        while(!cola.isEmpty() && !encontrado){
-            Interprete interActual = cola.remove();
-            if( interActual.equals(idestino)){encontrado = true;}
-            else {
-                for (Interprete aux : interActual.obtenerAdyacentes()){
-                    if(!visitados.containsKey(aux)){
-                        cola.add(aux);
-                        visitados.put(aux,interActual);
-                    }
-                }
-            }
-        }
-
-        if (encontrado){
-            Interprete actual = idestino;
-            while(actual != null){
-                resultado.addFirst(actual);
-                actual = visitados.get(actual);
-            }
-        }
-        return resultado;
-    }
-
-
-    public LinkedList<Interprete> obtenerCamino2(String nombreOrigen, String nombreDestino) {
+    public LinkedList<Interprete> obtenerCamino(String nombreOrigen, String nombreDestino) {
         Interprete origen = interpretes.buscarInterprete(nombreOrigen);
         Interprete destino = interpretes.buscarInterprete(nombreDestino);
-        return obtenerCamino2(origen, destino);
+        return obtenerCamino(origen, destino);
     }
 
-    public LinkedList<Interprete> obtenerCamino2(Interprete origen, Interprete destino) {
+    public LinkedList<Interprete> obtenerCamino(Interprete origen, Interprete destino) {
         if (origen == null || destino == null) return null;
         LinkedList<Interprete> camino = new LinkedList<>();
         camino.add(destino);

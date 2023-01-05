@@ -207,9 +207,10 @@ public class CatalogoIMDB {
      * @param inter2: nombre del segundo intérprete
      */
     public void imprimirCamino(String inter1, String inter2) {
+        int i = 0;
         LinkedList<Interprete> camino = obtenerCamino(inter1, inter2);
         for (Interprete inter : camino)
-            imprimirInfoInterprete(inter.getNombre());
+            System.out.printf("%d.- %s%n",i++ ,inter.getNombre());
     }
 
 

@@ -13,6 +13,8 @@ public class AplicacionIMDB {
         long tiempo = System.currentTimeMillis();
         catalogo.cargarInterpretes("cast.txt");
         System.out.printf("Ha tardado %,d%n", System.currentTimeMillis() - tiempo);
+        String Origen;
+        String Destino;
         //Menú
 
         Scanner sc = new Scanner(System.in);
@@ -79,12 +81,19 @@ public class AplicacionIMDB {
                         break;
                     case 5:
                         System.out.println("Introduce el nombre del interprete origen: ");
-                        String iOrigen = sc.nextLine();
+                        Origen = sc.nextLine();
                         System.out.println("Introduce el nombre del intérprete destino");
-                        String iDestino = sc.nextLine();
-                        int distancia = catalogo.distancia(iOrigen,iDestino);
+                        Destino = sc.nextLine();
+                        int distancia = catalogo.distancia(Origen,Destino);
                         if (distancia == -1) System.out.println("Los intérpretes introducidos no están conectados.");
-                        else System.out.printf("La distancia entre %s y %s es de %,d unidades de distancia.%n%n", iOrigen, iDestino, distancia);
+                        else System.out.printf("La distancia entre %s y %s es de %,d unidades de distancia.%n%n", Origen, Destino, distancia);
+                        break;
+                    case 6:
+                        System.out.println("Introduce el nombre del interprete origen: ");
+                        Origen = sc.nextLine();
+                        System.out.println("Introduce el nombre del intérprete destino");
+                        Destino = sc.nextLine();
+                        catalogo.imprimirCamino(Origen,Destino);
                         break;
                     default:
                         break;

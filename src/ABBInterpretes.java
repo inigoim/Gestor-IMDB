@@ -31,7 +31,7 @@ public class ABBInterpretes implements InterfazInterpretes{
      * @return el intérprete (si está en la lista), null en caso contrario
      */
     public Interprete buscarInterprete(String nombre) {
-        if (esVacio()) return null;
+        if (nombre == null || esVacio()) return null;
         else return raiz.buscarInterprete(nombre);
     }
 

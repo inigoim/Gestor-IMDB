@@ -14,7 +14,9 @@ public class HashMapInterpretes implements InterfazInterpretes {
      *Busca el intérprete en el hashMap
      */
     public Interprete buscarInterprete(String nombre) {
-        return  hmInterpretes.get(nombre);
+        if (hmInterpretes.containsKey(nombre))
+            return hmInterpretes.get(nombre);
+        return null;
     }
 
     /*

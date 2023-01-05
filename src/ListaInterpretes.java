@@ -23,6 +23,7 @@ public class ListaInterpretes implements InterfazInterpretes{
      * @return el intérprete (si está en la lista), null en caso contrario
      */
     public Interprete buscarInterprete(String nombre) {
+        if (nombre == null) return null;
         for (Interprete inter : lista)
             if (inter.getNombre().equalsIgnoreCase(nombre)) return inter;
         return null;

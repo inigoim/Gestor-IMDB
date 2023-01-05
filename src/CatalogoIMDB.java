@@ -16,6 +16,7 @@ public class CatalogoIMDB {
 
 
     private CatalogoIMDB() {}
+
     public static CatalogoIMDB getInstance() {
         if (miCatalogo == null) miCatalogo = new CatalogoIMDB();
         return miCatalogo;
@@ -60,6 +61,7 @@ public class CatalogoIMDB {
         System.out.printf("En el catálogo hay %,d películas.%n", peliculas.getLista().size());
 
     }
+
     /**
      * Carga los intérpretes del catálogo desde el fichero indicado. Es de orden O(n*m*log(l))
      * n="número de intérpretes en el fichero", m="promedio de películas en las que aparece cada intérprete"
@@ -73,12 +75,11 @@ public class CatalogoIMDB {
         Path pth = Paths.get(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
 
-        try  {
+        try {
             Stream<String> lineas = Files.readAllLines(pth, windows1252).parallelStream();
             lineas.forEach(this::cargarInterprete);
             System.out.printf("En el catálogo hay %,d intérpretes.%n", interpretes.size());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error en la lectura del archivo:");
             throw new RuntimeException(e);
         }
@@ -103,8 +104,7 @@ public class CatalogoIMDB {
             }
             inter.calcularRating();
             interpretes.anadirInterprete(inter);
-        }
-        catch (IndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.printf("Error de formato en:%n\"%s\"%n", linea);
             System.out.println(e.getMessage());
         }
@@ -124,6 +124,7 @@ public class CatalogoIMDB {
         else
             System.out.printf("La película %s no se encuentra en el catálogo.%n%n", titulo);
     }
+
     /**
      * Imprime por pantalla el nombre del intérprete, su rating y los títulos
      * de sus películas. Es de orden O(n), n="número de intérpretes en el catálogo"
@@ -137,6 +138,7 @@ public class CatalogoIMDB {
         else
             System.out.printf("El intérprete %s no está en el catálogo.%n%n", nombre);
     }
+
     /**
      * Añade un nuevo voto a una película
      * PRE: el valor del voto está entre 0.0 y 10.0.
@@ -160,11 +162,11 @@ public class CatalogoIMDB {
      * @param titulo: Nombre de la película a eliminar.
      * @return Película eliminada.
      */
-    public Pelicula eliminarPelicula(String titulo){
+    public Pelicula eliminarPelicula(String titulo) {
         Pelicula peliculaEliminada = peliculas.eliminarPelicula(titulo);
         if (peliculaEliminada == null) return null;
 
-        for (Interprete inter: peliculaEliminada.getReparto().getLista()) {
+        for (Interprete inter : peliculaEliminada.getReparto().getLista()) {
             inter.eliminarPelicula(peliculaEliminada);
             if (inter.getNumPeliculas() == 0)
                 interpretes.eliminarInterprete(inter);
@@ -178,7 +180,7 @@ public class CatalogoIMDB {
      * intérpretes que se le pasa como parámetro
      * @param interpretes: conjunto de intérpretes
      */
-    public void setInterpretes(InterfazInterpretes interpretes){
+    public void setInterpretes(InterfazInterpretes interpretes) {
         this.interpretes = interpretes;
     }
 
@@ -189,8 +191,8 @@ public class CatalogoIMDB {
      * @return distancia mínima entre ambos intérpretes. En caso de que no
      * estén conectados, devuelve -1.
      */
-    public int distancia(String inter1, String inter2){
-        LinkedList<Interprete> camino = obtenerCamino(inter1,inter2);
+    public int distancia(String inter1, String inter2) {
+        LinkedList<Interprete> camino = obtenerCamino(inter1, inter2);
         int distancia = -1;
         return distancia + camino.size();
     }
@@ -204,7 +206,7 @@ public class CatalogoIMDB {
      * @param inter2: nombre del segundo intérprete
      */
     public void imprimirCamino(String inter1, String inter2) {
-        LinkedList<Interprete> camino = obtenerCamino(inter1,inter2);
+        LinkedList<Interprete> camino = obtenerCamino(inter1, inter2);
         for (Interprete inter : camino)
             imprimirInfoInterprete(inter.getNombre());
     }
@@ -257,4 +259,40 @@ public class CatalogoIMDB {
     }
 
 
+    public LinkedList<Interprete> obtenerCamino2(String nombreOrigen, String nombreDestino) {
+        Interprete origen = interpretes.buscarInterprete(nombreOrigen);
+        Interprete destino = interpretes.buscarInterprete(nombreDestino);
+        return obtenerCamino2(origen, destino);
+    }
+
+    public LinkedList<Interprete> obtenerCamino2(Interprete origen, Interprete destino) {
+        if (origen == null || destino == null) return null;
+        LinkedList<Interprete> camino = new LinkedList<>();
+        camino.add(destino);
+        if (origen.equals(destino)) return camino;
+
+        Queue<Interprete> cola = new LinkedList<>();
+        HashMap<Interprete, Interprete> visitados = new HashMap<>();
+        visitados.put(origen, null);
+        cola.add(origen);
+
+        busqueda:
+        while (!cola.isEmpty()) {
+            Interprete inter = cola.remove();
+            inter.obtenerAdyacentes();
+
+            for (Interprete adyacente : inter.obtenerAdyacentes()) {
+                if (visitados.containsKey(adyacente)) continue;
+                visitados.put(adyacente, inter);
+                if (adyacente.equals(destino)) break busqueda;
+                cola.add(adyacente);
+            }
+        }
+
+        Interprete inter = visitados.get(destino);
+        do camino.addFirst(inter);
+        while ((inter = visitados.get(inter)) != null);
+
+        return camino;
+    }
 }

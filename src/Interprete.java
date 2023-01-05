@@ -90,7 +90,8 @@ public class Interprete {
     /**
      * Devuelve un HashSet con todos los adyacentes del intérprete, es decir,
      * aquellos intérpretes con los que ha participado en alguna película.
-     * @return: el HashSet con los intérpretes que son adyacentes.
+     * Orden temporal: O(n * m), con n="número de películas del intérprete", m="número de interpretes de cada película)
+     * @return el HashSet con los intérpretes que son adyacentes.
      */
     public HashSet<Interprete> obtenerAdyacentes() {
        HashSet<Interprete> hsAdyacentes = new HashSet<>();

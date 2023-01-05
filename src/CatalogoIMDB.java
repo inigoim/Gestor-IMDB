@@ -199,6 +199,7 @@ public class CatalogoIMDB {
     /**
      * Imprime el camino más corto entre dos intérpretes. Si no existe camino,
      * imprime un mensaje indicando este hecho.
+     * Es de orden O(n * m), con n="número de interpretes en el catálogo", m="Número de películas en el catálogo"
      * @param inter1: nombre del primer intérprete
      * @param inter2: nombre del segundo intérprete
      */
@@ -209,16 +210,21 @@ public class CatalogoIMDB {
     }
 
 
+    /**
+     * clase auxiliar de imprimir camino,
+     * que guarda un Linkedlist con el camino más corto hasta el nodo destino.
+     * Es de orden O(n * m), con n="número de interpretes en el catálogo", m="Número de películas en el catálogo"
+     * @return Linkedlist con el camino más corto hasta el nodo destino
+     */
 
-    //clase auxiliar de imprimir camino,
-    // que guarda un Linkedlist con el camino más corto hasta el nodo destino.
     public LinkedList<Interprete> obtenerCamino(String inter1, String inter2){
 
         LinkedList<Interprete> resultado = new LinkedList<>();
         HashMap<Interprete,Interprete> visitados = new HashMap<>();
         Queue<Interprete> cola = new LinkedList<>();
 
-        //Obtenemos los intérpretes para poder usar buscarAdyacentes en caso de que existan
+        // Obtenemos los intérpretes para poder usar buscarAdyacentes en caso de que existan
+        // Si la implementación de InterfazInterpretes deja de ser una basada en HashMap, esto será bastante ineficiente
         Interprete iorigen = interpretes.buscarInterprete(inter1);
         Interprete idestino = interpretes.buscarInterprete(inter2);
         if (iorigen==null || idestino==null) return resultado;

@@ -10,9 +10,7 @@ public class AplicacionIMDB {
         catalogo = CatalogoIMDB.getInstance();
         catalogo.cargarPeliculas("films.txt");
         catalogo.setInterpretes(new HashMapInterpretes());
-        long tiempo = System.currentTimeMillis();
         catalogo.cargarInterpretes("cast.txt");
-        System.out.printf("Ha tardado %,d%n", System.currentTimeMillis() - tiempo);
         String Origen;
         String Destino;
         //Menú

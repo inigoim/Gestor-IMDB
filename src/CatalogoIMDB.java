@@ -202,12 +202,15 @@ public class CatalogoIMDB {
      * @param inter2: nombre del segundo intérprete
      */
     public void imprimirCamino(String inter1, String inter2) {
-        int i = 0;
         LinkedList<Interprete> camino = obtenerCamino(inter1, inter2);
         if (camino == null) System.out.println("No se han encontrado los interpretes introducidos");
         else if (camino.size() == 0) System.out.println("Los intérpretes introducidos no están conectados.");
-        else for (Interprete inter : camino)
-            System.out.printf("%d.- %s%n",i++ ,inter.getNombre());
+        else {
+            StringBuilder string = new StringBuilder("[");
+            for (Interprete inter : camino)
+                string.append(inter.getNombre()).append(" ; ");
+            System.out.println(string);
+        }
     }
 
 

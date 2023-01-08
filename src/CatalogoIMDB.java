@@ -189,12 +189,12 @@ public class CatalogoIMDB {
      * @param inter1: nombre del primer intérprete
      * @param inter2: nombre del segundo intérprete
      * @return distancia mínima entre ambos intérpretes. En caso de que no
-     * estén conectados, devuelve -1.
+     * estén conectados, devuelve -1. Y en caso de que uno de los intérpretes no esté en el catálogo, devuelve -10.
      */
     public int distancia(String inter1, String inter2) {
         LinkedList<Interprete> camino = obtenerCamino(inter1, inter2);
-        int distancia = -1;
-        return distancia + camino.size();
+        if (camino == null) return -10;
+        return camino.size() - 1;
     }
 
 
@@ -209,7 +209,9 @@ public class CatalogoIMDB {
     public void imprimirCamino(String inter1, String inter2) {
         int i = 0;
         LinkedList<Interprete> camino = obtenerCamino(inter1, inter2);
-        for (Interprete inter : camino)
+        if (camino == null) System.out.println("No se han encontrado los interpretes introducidos");
+        else if (camino.size() == 0) System.out.println("Los intérpretes introducidos no están conectados.");
+        else for (Interprete inter : camino)
             System.out.printf("%d.- %s%n",i++ ,inter.getNombre());
     }
 
@@ -249,6 +251,7 @@ public class CatalogoIMDB {
                 cola.add(adyacente);
             }
         }
+        if (!visitados.containsKey(destino)) return new LinkedList<>();
 
         Interprete inter = visitados.get(destino);
         do camino.addFirst(inter);

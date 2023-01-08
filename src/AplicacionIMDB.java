@@ -80,18 +80,19 @@ public class AplicacionIMDB {
                                     " intérpretes.%n%n", tituloPelicula, catalogo.numPeliculas(), catalogo.numInterpretes());
                         break;
                     case 5:
-                        System.out.println("Introduce el nombre del interprete origen: ");
+                        System.out.println("Introduce el nombre del interprete origen:");
                         Origen = sc.nextLine();
-                        System.out.println("Introduce el nombre del intérprete destino");
+                        System.out.println("Introduce el nombre del intérprete destino:");
                         Destino = sc.nextLine();
                         int distancia = catalogo.distancia(Origen,Destino);
                         if (distancia == -1) System.out.println("Los intérpretes introducidos no están conectados.");
-                        else System.out.printf("La distancia entre %s y %s es de %,d unidades de distancia.%n%n", Origen, Destino, distancia);
+                        else if (distancia == -10) System.out.println("No se han encontrado los interpretes introducidos");
+                        else System.out.printf("La distancia entre '%s' y '%s' es de %d.%n%n", Origen, Destino, distancia);
                         break;
                     case 6:
-                        System.out.println("Introduce el nombre del interprete origen: ");
+                        System.out.println("Introduce el nombre del interprete origen:");
                         Origen = sc.nextLine();
-                        System.out.println("Introduce el nombre del intérprete destino");
+                        System.out.println("Introduce el nombre del intérprete destino:");
                         Destino = sc.nextLine();
                         catalogo.imprimirCamino(Origen,Destino);
                         break;

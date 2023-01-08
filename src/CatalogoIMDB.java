@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.stream.Stream;
 
 public class CatalogoIMDB {
     private static CatalogoIMDB miCatalogo;
@@ -75,40 +74,36 @@ public class CatalogoIMDB {
         Path pth = Paths.get(nomF);
         Charset windows1252 = Charset.forName("windows-1252");
 
-        try {
-            Stream<String> lineas = Files.readAllLines(pth, windows1252).parallelStream();
-            lineas.forEach(this::cargarInterprete);
-            System.out.printf("En el catálogo hay %,d intérpretes.%n", interpretes.size());
-        } catch (IOException e) {
+        try (BufferedReader reader = Files.newBufferedReader(pth, windows1252)) {
+            Pelicula pel;
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                try {
+                    String[] interDatos = linea.split("->");
+                    Interprete inter = new Interprete(interDatos[0]);
+                    String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
+                    for (String pelTitulo : pels) {
+                        pel = peliculas.buscarPelicula(pelTitulo);
+                        if (pel != null) {
+                            inter.anadirPelicula(pel);
+                            pel.anadirInterprete(inter);
+                        }
+                    }
+                    inter.calcularRating();
+                    interpretes.anadirInterprete(inter);
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    System.out.printf("Error de formato en:%n\"%s\"%n", linea);
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+        catch(IOException e){
             System.out.println("Error en la lectura del archivo:");
             throw new RuntimeException(e);
         }
-
+        System.out.printf("En el catálogo hay %,d intérpretes.%n", interpretes.size());
     }
 
-    /**
-     * Función auxiliar que se usa en cargarInterpretes
-     */
-    private void cargarInterprete(String linea) {
-        try {
-            String[] interDatos = linea.split("->");
-            Interprete inter = new Interprete(interDatos[0]);
-            String[] pels = interDatos[1].split("\\Q||\\E"); //Hay que poner eso para escapar los caracteres
-            Pelicula pel;
-            for (String pelTitulo : pels) {
-                pel = peliculas.buscarPelicula(pelTitulo);
-                if (pel != null) {
-                    inter.anadirPelicula(pel);
-                    pel.anadirInterprete(inter);
-                }
-            }
-            inter.calcularRating();
-            interpretes.anadirInterprete(inter);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.printf("Error de formato en:%n\"%s\"%n", linea);
-            System.out.println(e.getMessage());
-        }
-    }
 
 
     /**

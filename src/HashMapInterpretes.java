@@ -1,7 +1,7 @@
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 
 public class HashMapInterpretes implements InterfazInterpretes {
-    private final ConcurrentHashMap<String,Interprete> hmInterpretes = new ConcurrentHashMap<>();
+    private final HashMap<String,Interprete> hmInterpretes = new HashMap<>();
 
 
     /**
